@@ -370,8 +370,16 @@ function Process() {
 }
 
 // -----------------------------------------------------------------------------
-// Manifesto (visual + texto)
+// Manifesto — carrossel scroll-snap com 5 slides
 // -----------------------------------------------------------------------------
+const MANIFESTO_SLIDES = [
+  { src: '/manifesto/1.png', alt: 'Quem é bem posicionado não precisa disputar atenção' },
+  { src: '/manifesto/2.png', alt: 'Você pode até estar presente nas redes, mas isso não garante reconhecimento' },
+  { src: '/manifesto/3.png', alt: 'Foi aí que nasceu a Trimark — Clareza · Resposta · Direção' },
+  { src: '/manifesto/4.png', alt: 'Enquanto o mercado insiste em volume e fórmulas prontas, nós escolhemos outro caminho' },
+  { src: '/manifesto/5.png', alt: 'Pensar, estruturar e construir marcas com estratégia de verdade' },
+] as const
+
 function Manifesto() {
   return (
     <section className="border-t border-border/60 bg-muted/30">
@@ -381,21 +389,38 @@ function Manifesto() {
             Manifesto
           </p>
           <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight">
-            Pensar, estruturar e construir marcas com{' '}
-            <span className="text-primary">estratégia de verdade.</span>
+            Por que a Trimark{' '}
+            <span className="text-primary">existe.</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
             Enquanto o mercado insiste em volume, tendências e fórmulas prontas,
-            nós escolhemos outro caminho — clareza, respeito e direção.
+            nós escolhemos outro caminho — clareza, resposta e direção.
+          </p>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Arraste para o lado para ler o manifesto completo →
           </p>
         </div>
 
-        <div className="mt-12 rounded-2xl overflow-hidden border border-border bg-background shadow-sm">
-          <img
-            src="/manifesto-trimark.png"
-            alt="Manifesto Trimark — Pensar, Estruturar e Construir marcas com estratégia de verdade"
-            className="w-full h-auto block"
-          />
+        {/* Carrossel scroll-snap horizontal — comportamento Instagram */}
+        <div className="mt-10 -mx-6 sm:mx-0">
+          <div
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-6 sm:px-0 scrollbar-thin"
+            style={{ scrollbarWidth: 'thin' }}
+          >
+            {MANIFESTO_SLIDES.map((s, i) => (
+              <figure
+                key={s.src}
+                className="snap-center shrink-0 w-[260px] sm:w-[320px] md:w-[360px] rounded-2xl overflow-hidden border border-border bg-background shadow-sm"
+              >
+                <img
+                  src={s.src}
+                  alt={s.alt}
+                  className="w-full h-auto block aspect-[4/5] object-cover"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                />
+              </figure>
+            ))}
+          </div>
         </div>
 
         <p className="mt-8 text-center text-sm text-muted-foreground italic">

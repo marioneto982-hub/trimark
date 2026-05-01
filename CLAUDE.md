@@ -164,11 +164,30 @@ Deno.serve(async (req) => {
 - Beta com 3+ clientes reais por 30 dias sem incidente bloqueante.
 - 1 ciclo de cobrança completo executado ponta a ponta.
 
-## 11. Próximos passos imediatos
+## 11. Estado do banco remoto (Supabase)
 
-1. Confirmar criação do projeto Supabase remoto (custo + irreversível — pedir ao Mario).
-2. Aplicar `20260430000001_initial_schema.sql` na instância remota.
-3. Migration seguinte: criar buckets Storage (`post-media`, `client-documents`, `library-media`, `agency-assets`).
-4. Migration: configurar pg_cron para os 6 jobs cron do PRD §14.
-5. Seed inicial de `specialties` (cardiologia, ortodontia, psicologia, nutrição etc.).
-6. Implementar `client-invite` (primeira Edge Function — bloqueia onboarding).
+- **Projeto:** `trimark` (id `rrprzipocqxwadsiscpz`, region `sa-east-1`, PG 17.6).
+- **URL:** https://rrprzipocqxwadsiscpz.supabase.co
+- **Migrations aplicadas:**
+  1. `20260430000001_initial_schema.sql` — 19 tabelas + RLS + funções + policies + triggers.
+  2. `20260501000001_harden_security_advisors.sql` — fix `tg_set_updated_at` search_path + REVOKE EXECUTE de `get_my_*` do `anon`/`public` (mantido em `authenticated`/`service_role`).
+  3. `20260501000002_perf_initplan_and_fk_indexes.sql` — 4 policies `auth_rls_initplan` corrigidas + 21 índices em FKs.
+
+## 12. Advisors — estado atual e dívida técnica
+
+**Security (3 warnings restantes — aceitos):**
+- `authenticated_security_definer_function_executable` em `get_my_agency_id`, `get_my_client_id`, `get_my_role`.
+- **Intencional**: as policies RLS precisam dessas funções rodando como `SECURITY DEFINER` no contexto do usuário logado. Trocar para `SECURITY INVOKER` quebraria `get_my_role` (precisa olhar `client_users` mesmo quando o caller é só client). NÃO MEXER.
+
+**Performance (107 lints remanescentes — dívida documentada, NÃO bloqueante):**
+- 80× `multiple_permissive_policies` — várias policies por (role, action) na mesma tabela. Refatorar para 1 policy com `OR` aumenta perf, reduz clareza. Aceitável enquanto tabelas estiverem leves; reavaliar em produção.
+- 26× `unused_index` — banco vazio, dados de tráfego ainda não vieram. Reavaliar 30d pós-go-live.
+- 1× `auth_db_connections_absolute` — config de Auth, não migration. Reavaliar quando escalar instance size.
+
+## 13. Próximos passos imediatos
+
+1. Migration: buckets Storage (`post-media`, `client-documents`, `library-media`, `agency-assets`) + RLS por path.
+2. Migration: seed de `specialties` (cardiologia, ortodontia, psicologia, nutrição, fisio, vet, fono, biomed, farma, enfermagem etc.).
+3. Migration: pg_cron dos 6 jobs do PRD §14.
+4. Edge Function `client-invite` (bloqueia onboarding — primeira a implementar).
+5. Frontend: router + auth + layout admin base + tela login.

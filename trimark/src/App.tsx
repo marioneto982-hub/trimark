@@ -15,6 +15,10 @@ import PostNewPage from '@/pages/admin/calendar/PostNewPage'
 import PostDetailPage from '@/pages/admin/calendar/PostDetailPage'
 import PortalLayout from '@/pages/portal/PortalLayout'
 import PortalDashboard from '@/pages/portal/PortalDashboard'
+import ApprovalsPage from '@/pages/portal/ApprovalsPage'
+import PortalCalendarPage from '@/pages/portal/PortalCalendarPage'
+import PortalLibraryPage from '@/pages/portal/PortalLibraryPage'
+import PortalFinancePage from '@/pages/portal/PortalFinancePage'
 import './App.css'
 
 const queryClient = new QueryClient({
@@ -140,60 +144,10 @@ export default function App() {
               }
             >
               <Route index element={<PortalDashboard />} />
-              <Route
-                path="approvals"
-                element={
-                  <PlaceholderPage
-                    title="Aprovações pendentes"
-                    prdRef="PRD §6.2.2"
-                    bullets={[
-                      'Lista de posts em status awaiting_client',
-                      'Aprovar / Solicitar revisão / Rejeitar',
-                      'Comentários por post',
-                    ]}
-                  />
-                }
-              />
-              <Route
-                path="calendar"
-                element={
-                  <PlaceholderPage
-                    title="Calendário público"
-                    prdRef="PRD §6.2.3"
-                    bullets={[
-                      'Modo somente leitura',
-                      'Cores por status: cinza, amarelo, verde, azul',
-                      'Visão dos próximos 30 dias',
-                    ]}
-                  />
-                }
-              />
-              <Route
-                path="library"
-                element={
-                  <PlaceholderPage
-                    title="Biblioteca de conteúdos"
-                    prdRef="PRD §7.5"
-                    bullets={[
-                      'Filtragem automática pela sua especialidade',
-                      'Ações: marcar como usado, solicitar para minha agenda',
-                    ]}
-                  />
-                }
-              />
-              <Route
-                path="finance"
-                element={
-                  <PlaceholderPage
-                    title="Financeiro"
-                    prdRef="PRD §6.2.5"
-                    bullets={[
-                      'Histórico de faturas (paga, em aberto, vencida)',
-                      'Botões "Copiar PIX" e "Baixar boleto"',
-                    ]}
-                  />
-                }
-              />
+              <Route path="approvals" element={<ApprovalsPage />} />
+              <Route path="calendar" element={<PortalCalendarPage />} />
+              <Route path="library" element={<PortalLibraryPage />} />
+              <Route path="finance" element={<PortalFinancePage />} />
             </Route>
 
             <Route path="/" element={<RootRoute />} />

@@ -6,6 +6,9 @@ import { PlaceholderPage } from '@/components/shared/PlaceholderPage'
 import LoginPage from '@/pages/login/LoginPage'
 import AdminLayout from '@/pages/admin/AdminLayout'
 import AdminDashboard from '@/pages/admin/AdminDashboard'
+import ClientsListPage from '@/pages/admin/clients/ClientsListPage'
+import ClientNewPage from '@/pages/admin/clients/ClientNewPage'
+import ClientDetailPage from '@/pages/admin/clients/ClientDetailPage'
 import PortalLayout from '@/pages/portal/PortalLayout'
 import PortalDashboard from '@/pages/portal/PortalDashboard'
 import './App.css'
@@ -46,20 +49,9 @@ export default function App() {
               }
             >
               <Route index element={<AdminDashboard />} />
-              <Route
-                path="clients"
-                element={
-                  <PlaceholderPage
-                    title="Clientes"
-                    prdRef="PRD §4 — Módulo 1 (CRM da agência)"
-                    bullets={[
-                      'Listagem com filtros (status, especialidade, plano, account manager, vencimento)',
-                      'Wizard de cadastro em 4 passos (PRD §4.1)',
-                      'Visão 360° do cliente: dados, plano, equipe, cobranças, posts, métricas',
-                    ]}
-                  />
-                }
-              />
+              <Route path="clients" element={<ClientsListPage />} />
+              <Route path="clients/new" element={<ClientNewPage />} />
+              <Route path="clients/:id" element={<ClientDetailPage />} />
               <Route
                 path="calendar"
                 element={

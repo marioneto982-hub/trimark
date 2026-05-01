@@ -32,8 +32,8 @@ type Phase = 'fade-in' | 'idle' | 'zoom' | 'click' | 'rush' | 'reveal' | 'done'
 
 // Posicao aproximada do botao de play dentro do PNG do logo (% do container).
 // Calibrado visualmente. Ajustar se necessario.
-const PLAY_X = 22 // % horizontal (logo "play" fica acima do "i", segunda letra)
-const PLAY_Y = 32 // % vertical (play fica na metade superior do logo)
+const PLAY_X = 30 // % horizontal (logo "play" fica acima do "i", segunda letra)
+const PLAY_Y = 42 // % vertical (play fica na metade superior do logo)
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState<Phase>('fade-in')

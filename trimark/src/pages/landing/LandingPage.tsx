@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Reveal } from '@/components/shared/Reveal'
+import IntroAnimation from '@/components/shared/IntroAnimation'
 import { CountUp } from '@/hooks/useCountUp'
 import { cn } from '@/lib/utils'
 
@@ -30,20 +31,33 @@ import { cn } from '@/lib/utils'
 // =============================================================================
 
 export default function LandingPage() {
+  // Intro cinematografica: roda em toda visita.
+  // Quando termina (ou e pulada), libera o site.
+  const [introDone, setIntroDone] = useState(false)
+
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased overflow-x-hidden">
-      <Header />
-      <Hero />
-      <Marquee />
-      <Pillars />
-      <Stats />
-      <Services />
-      <Specialties />
-      <Process />
-      <Manifesto />
-      <FinalCTA />
-      <Footer />
-    </div>
+    <>
+      {!introDone && <IntroAnimation onComplete={() => setIntroDone(true)} />}
+      <div
+        className="min-h-screen bg-background text-foreground antialiased overflow-x-hidden"
+        style={{
+          opacity: introDone ? 1 : 0,
+          transition: 'opacity 0.6s ease-out',
+        }}
+      >
+        <Header />
+        <Hero />
+        <Marquee />
+        <Pillars />
+        <Stats />
+        <Services />
+        <Specialties />
+        <Process />
+        <Manifesto />
+        <FinalCTA />
+        <Footer />
+      </div>
+    </>
   )
 }
 

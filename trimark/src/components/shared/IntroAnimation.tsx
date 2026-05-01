@@ -39,6 +39,9 @@ const PLAY_SIZE = 17
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState<Phase>('fade-in')
   const audioPlayedRef = useRef(false)
+  // AudioContext criado uma unica vez. Tenta destravar em qualquer interacao
+  // do usuario (autoplay policy dos browsers).
+  const audioCtxRef = useRef<AudioContext | null>(null)
 
   useEffect(() => {
     if (
@@ -49,6 +52,31 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       onComplete()
       return
     }
+
+    // Cria AudioContext logo no mount (se possivel; vai nascer suspended
+    // no primeiro acesso por causa da autoplay policy).
+    try {
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext
+      audioCtxRef.current = new AudioCtx()
+    } catch {
+      /* ignore */
+    }
+
+    // Listener pra destravar audio em qualquer gesto do usuario antes
+    // do click da intro. Mouse mover, click, touch, tecla — qualquer um serve.
+    const unlock = () => {
+      const ctx = audioCtxRef.current
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume().catch(() => {})
+      }
+    }
+    const events = ['mousemove', 'mousedown', 'touchstart', 'keydown', 'click']
+    events.forEach((ev) =>
+      document.addEventListener(ev, unlock, { once: true, passive: true }),
+    )
 
     const timers = [
       setTimeout(() => setPhase('idle'), 100),
@@ -62,21 +90,31 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         onComplete()
       }, 3800),
     ]
-    return () => timers.forEach(clearTimeout)
+    return () => {
+      timers.forEach(clearTimeout)
+      events.forEach((ev) => document.removeEventListener(ev, unlock))
+    }
   }, [onComplete])
 
-  function playCameraSound() {
+  async function playCameraSound() {
     if (audioPlayedRef.current) return
     audioPlayedRef.current = true
     try {
-      const AudioCtx =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext })
-          .webkitAudioContext
-      const ctx = new AudioCtx()
+      const ctx = audioCtxRef.current
+      if (!ctx) return
+      // Tenta destravar (vai falhar silenciosamente se nao houve gesto)
+      if (ctx.state === 'suspended') {
+        try {
+          await ctx.resume()
+        } catch {
+          /* autoplay policy bloqueou — som nao vai tocar nesta visita */
+          return
+        }
+      }
       const now = ctx.currentTime
-      makeClick(ctx, now, 2400, 0.04, 0.4)
-      makeClick(ctx, now + 0.09, 1500, 0.06, 0.45)
+      // Volume bem mais alto pra garantir audibilidade (era 0.4/0.45)
+      makeClick(ctx, now, 2200, 0.05, 0.85)
+      makeClick(ctx, now + 0.09, 1400, 0.07, 0.95)
     } catch {
       /* ignore audio errors */
     }

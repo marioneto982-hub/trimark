@@ -54,6 +54,7 @@ export default function LandingPage() {
         <Specialties />
         <Process />
         <Manifesto />
+        <Founders />
         <FinalCTA />
         <Footer />
       </div>
@@ -468,12 +469,16 @@ function Manifesto() {
               Manifesto
             </p>
             <h2 className="mt-3 text-3xl md:text-5xl font-semibold tracking-tight">
-              Por que a Trimark{' '}
-              <span className="text-primary">existe.</span>
+              Você pode até estar nas redes.{' '}
+              <span className="text-primary">Mas isso não garante reconhecimento.</span>
             </h2>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+            <p className="mt-6 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              A Trimark nasceu de duas dentistas — Marcelia e Thayná — que viveram,
+              na pele, o limite estreito entre o que o conselho permite e o que o
+              mercado de marketing exige. Foi aí que nasceu a Trimark — que veio
+              como <strong className="text-foreground/90">Clareza · Resposta · Direção</strong>.
               Enquanto o mercado insiste em volume, tendências e fórmulas prontas,
-              nós escolhemos outro caminho — clareza, resposta e direção.
+              nós escolhemos outro caminho.
             </p>
           </div>
         </Reveal>
@@ -640,6 +645,86 @@ function Footer() {
         </div>
       </div>
     </footer>
+  )
+}
+
+// -----------------------------------------------------------------------------
+// Founders — Quem está construindo a Trimark
+// Nova seção: apresenta Marcelia e Thayná. Sem fotos reais ainda — usa
+// placeholders com iniciais sobre gradient da identidade.
+// Quando as fotos limpas (sem o lettering do Instagram) chegarem, basta
+// trocar src nos <img />.
+// -----------------------------------------------------------------------------
+const FOUNDERS = [
+  {
+    initial: 'M',
+    name: 'Marcelia',
+    role: 'Cofundadora · Estratégia',
+    bio: 'Dentista de formação. Lidera posicionamento, estratégia e relacionamento com clientes.',
+  },
+  {
+    initial: 'T',
+    name: 'Thayná',
+    role: 'Cofundadora · Conteúdo & Marca',
+    bio: 'Dentista de formação. Lidera direção criativa, conteúdo e identidade visual da marca.',
+  },
+] as const
+
+function Founders() {
+  return (
+    <section id="fundadoras" className="bg-background">
+      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <Reveal>
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
+              Quem está construindo a Trimark
+            </p>
+            <h2 className="mt-3 text-3xl md:text-5xl font-semibold tracking-tight">
+              Duas dentistas que escolheram{' '}
+              <span className="text-primary">o marketing</span>.
+            </h2>
+            <p className="mt-6 text-muted-foreground text-lg leading-relaxed">
+              Conhecemos por dentro o que o seu conselho permite, porque vivemos
+              sob ele todos os dias. Não é teoria de quem leu a resolução —
+              é prática de quem operou dentro dela.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {FOUNDERS.map(({ initial, name, role, bio }, i) => (
+            <Reveal key={name} delay={i * 120}>
+              <article className="rounded-3xl border border-border bg-background p-6 md:p-8 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full flex flex-col items-center text-center">
+                {/* Placeholder visual da fundadora — será trocado pela foto real */}
+                <div
+                  className="size-32 md:size-40 rounded-full flex items-center justify-center text-5xl md:text-6xl font-semibold text-primary-foreground select-none shadow-lg shadow-primary/20"
+                  style={{
+                    background:
+                      'linear-gradient(135deg, #1B2D5C 0%, #2A4280 100%)',
+                  }}
+                  aria-hidden="true"
+                >
+                  {initial}
+                </div>
+                <h3 className="mt-6 text-2xl font-semibold tracking-tight">
+                  {name}
+                </h3>
+                <p className="mt-1 text-sm text-primary font-medium">{role}</p>
+                <p className="mt-4 text-muted-foreground leading-relaxed">
+                  {bio}
+                </p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={300}>
+          <p className="mt-12 text-center text-sm text-muted-foreground italic max-w-xl mx-auto">
+            “Quem é bem posicionado não precisa disputar atenção. E isso muda tudo.”
+          </p>
+        </Reveal>
+      </div>
+    </section>
   )
 }
 

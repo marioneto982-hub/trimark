@@ -370,22 +370,36 @@ function Process() {
 }
 
 // -----------------------------------------------------------------------------
-// Manifesto
+// Manifesto (visual + texto)
 // -----------------------------------------------------------------------------
 function Manifesto() {
   return (
-    <section className="border-t border-border/60">
-      <div className="mx-auto max-w-3xl px-6 py-20 md:py-28 text-center">
-        <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
-          Manifesto
-        </p>
-        <p className="mt-6 text-2xl md:text-3xl font-medium leading-relaxed tracking-tight text-foreground/90">
-          A gente acredita que <span className="text-primary">marketing para saúde</span> não é
-          sobre seguidores. É sobre a pessoa que estava sofrendo, te encontrou no Instagram,
-          marcou consulta e <span className="underline decoration-accent decoration-[3px] underline-offset-4">saiu do seu consultório melhor</span>.
-        </p>
-        <p className="mt-6 text-sm text-muted-foreground">
-          Por isso seguimos os códigos de ética. E por isso medimos resultado em agendamento, não em like.
+    <section className="border-t border-border/60 bg-muted/30">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
+            Manifesto
+          </p>
+          <h2 className="mt-3 text-3xl md:text-4xl font-semibold tracking-tight">
+            Pensar, estruturar e construir marcas com{' '}
+            <span className="text-primary">estratégia de verdade.</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+            Enquanto o mercado insiste em volume, tendências e fórmulas prontas,
+            nós escolhemos outro caminho — clareza, respeito e direção.
+          </p>
+        </div>
+
+        <div className="mt-12 rounded-2xl overflow-hidden border border-border bg-background shadow-sm">
+          <img
+            src="/manifesto-trimark.png"
+            alt="Manifesto Trimark — Pensar, Estruturar e Construir marcas com estratégia de verdade"
+            className="w-full h-auto block"
+          />
+        </div>
+
+        <p className="mt-8 text-center text-sm text-muted-foreground italic">
+          “Quem é bem posicionado não precisa disputar atenção.”
         </p>
       </div>
     </section>

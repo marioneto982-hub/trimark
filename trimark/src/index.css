@@ -55,4 +55,53 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* compensa header sticky em âncoras */
+  }
+}
+
+/* ---------- Marquee / faixa rolando ---------- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+  width: max-content;
+}
+.marquee-track:hover { animation-play-state: paused; }
+
+/* ---------- Float decorativo do hero ---------- */
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(20px, -30px) scale(1.05); }
+  66%      { transform: translate(-25px, 15px) scale(0.95); }
+}
+.animate-blob { animation: blob 18s ease-in-out infinite; }
+
+/* ---------- Mesh gradient sutil pro hero ---------- */
+.bg-mesh {
+  background-image:
+    radial-gradient(ellipse at 18% 12%, hsl(var(--primary) / 0.10), transparent 55%),
+    radial-gradient(ellipse at 82% 22%, hsl(var(--accent) / 0.12), transparent 50%),
+    radial-gradient(ellipse at 50% 90%, hsl(var(--primary) / 0.06), transparent 60%);
+}
+
+/* ---------- Grid de pontos decorativo ---------- */
+.bg-dots {
+  background-image: radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+/* ---------- Esconder scrollbar (carrossel) ---------- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* ---------- Respeito a prefers-reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .animate-blob {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto; }
 }

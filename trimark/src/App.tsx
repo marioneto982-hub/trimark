@@ -15,6 +15,9 @@ import PostNewPage from '@/pages/admin/calendar/PostNewPage'
 import PostDetailPage from '@/pages/admin/calendar/PostDetailPage'
 import InvoicesPage from '@/pages/admin/finance/InvoicesPage'
 import InvoiceDetailPage from '@/pages/admin/finance/InvoiceDetailPage'
+import LibraryListPage from '@/pages/admin/library/LibraryListPage'
+import LibraryNewPage from '@/pages/admin/library/LibraryNewPage'
+import LibraryDetailPage from '@/pages/admin/library/LibraryDetailPage'
 import PortalLayout from '@/pages/portal/PortalLayout'
 import PortalDashboard from '@/pages/portal/PortalDashboard'
 import ApprovalsPage from '@/pages/portal/ApprovalsPage'
@@ -66,20 +69,9 @@ export default function App() {
               <Route path="calendar" element={<CalendarPage />} />
               <Route path="calendar/posts/new" element={<PostNewPage />} />
               <Route path="calendar/posts/:id" element={<PostDetailPage />} />
-              <Route
-                path="library"
-                element={
-                  <PlaceholderPage
-                    title="Biblioteca"
-                    prdRef="PRD §7 — Módulo 4 (Conteúdos por especialidade)"
-                    bullets={[
-                      'CRUD admin de itens da biblioteca',
-                      'Tipos: ideia de post, artigo, datas comemorativas, templates, casos éticos',
-                      'Filtragem automática por specialty no portal cliente',
-                    ]}
-                  />
-                }
-              />
+              <Route path="library" element={<LibraryListPage />} />
+              <Route path="library/new" element={<LibraryNewPage />} />
+              <Route path="library/:id" element={<LibraryDetailPage />} />
               <Route path="finance" element={<InvoicesPage />} />
               <Route path="finance/:id" element={<InvoiceDetailPage />} />
               <Route

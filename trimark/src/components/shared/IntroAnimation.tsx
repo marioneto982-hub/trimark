@@ -9,31 +9,32 @@ type Phase = 'fade-in' | 'idle' | 'zoom' | 'click' | 'rush' | 'reveal' | 'done'
 /**
  * Intro cinematografica do site Trimark.
  *
+ * Conceito (pedido do produto):
+ *   - O LOGO "trimark" fica visivel e estavel durante toda a intro
+ *     (so se move/escala junto com o container no zoom)
+ *   - SO O SIMBOLO DE PLAY se move e cresce ate cobrir a tela inteira
+ *   - Quando o play preenche a tela, ele "abre" no centro dele,
+ *     revelando o site
+ *
  * Sequencia:
- *   0.0s - 0.3s   logo aparece em fade-in (centralizado, fundo branco)
+ *   0.0s - 0.3s   logo + play aparecem em fade-in
  *   0.3s - 1.0s   idle (pausa pra ler "trimark")
- *   1.0s - 2.0s   ZOOM FORTE focando no botao "play" sobre o "i"
- *                 (transform-origin no play: scale 7x, "trimark" voa pra fora)
- *   2.0s - 2.3s   anel pulsante em volta do play (chama atencao)
- *   2.3s - 2.4s   CLIQUE: play e pressionado (scale 0.94, brilho menor)
- *   2.4s         som de obturador de camera (Web Audio API)
- *   2.4s - 3.2s   RUSH: play vem em direcao ao usuario
- *                 (scale 22x, glow azul-marinho, fade pra branco)
- *   3.2s - 3.7s   site aparece com fade-in
- *
- * - Respeita prefers-reduced-motion (pula direto se ativo)
- * - Botao "Pular intro" no canto inferior direito
- * - Som via Web Audio API (sem arquivo externo)
- *
- * IMPORTANTE: a posicao do "play" dentro do logo PNG e calibrada via
- * PLAY_X / PLAY_Y (% do container do logo). Se o anel/ripple aparecer
- * fora do play visualmente, ajustar esses dois valores.
+ *   1.0s - 2.0s   ZOOM forte focando o play (todo o container escala 5.5x
+ *                 com transform-origin no play; "trimark" continua visivel
+ *                 mas esticado pra fora)
+ *   2.0s - 2.3s   anel pulsante em volta do play
+ *   2.3s - 2.4s   CLIQUE: play e pressionado (scale-down 0.92, escurece)
+ *   2.4s         som de obturador de camera (Web Audio)
+ *   2.4s - 3.4s   RUSH: SO O PLAY cresce em direcao ao usuario (scale 50x).
+ *                 Domina a tela inteira de azul-marinho. Logo permanece atras.
+ *   3.4s - 3.8s   "ABERTURA": fundo da intro fade out → site aparece atras
  */
 
-// Posicao aproximada do botao de play dentro do PNG do logo (% do container).
-// Calibrado visualmente. Ajustar se necessario.
-const PLAY_X = 30 // % horizontal (logo "play" fica acima do "i", segunda letra)
-const PLAY_Y = 42 // % vertical (play fica na metade superior do logo)
+// Posicao do play dentro do container quadrado do logo (% do container)
+const PLAY_X = 30
+const PLAY_Y = 40
+// Tamanho do play SVG no container (% — bate com o tamanho real do play no PNG)
+const PLAY_SIZE = 17
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState<Phase>('fade-in')
@@ -55,11 +56,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       setTimeout(() => setPhase('click'), 2300),
       setTimeout(() => playCameraSound(), 2360),
       setTimeout(() => setPhase('rush'), 2450),
-      setTimeout(() => setPhase('reveal'), 3200),
+      setTimeout(() => setPhase('reveal'), 3400),
       setTimeout(() => {
         setPhase('done')
         onComplete()
-      }, 3700),
+      }, 3800),
     ]
     return () => timers.forEach(clearTimeout)
   }, [onComplete])
@@ -74,9 +75,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           .webkitAudioContext
       const ctx = new AudioCtx()
       const now = ctx.currentTime
-      // Click 1 - shutter open (curto, agudo)
       makeClick(ctx, now, 2400, 0.04, 0.4)
-      // Click 2 - shutter close (curto, mais grave, levemente atrasado)
       makeClick(ctx, now + 0.09, 1500, 0.06, 0.45)
     } catch {
       /* ignore audio errors */
@@ -112,10 +111,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   if (phase === 'done') return null
 
-  // Estilo do container do logo conforme a fase.
-  // transform-origin sempre no play => o play fica visualmente fixo enquanto
-  // o resto do logo escala/voa pra fora dele.
-  const logoStyle = (() => {
+  // Container do logo (escala junto durante zoom; nao move durante rush)
+  const containerStyle = (() => {
     const origin = `${PLAY_X}% ${PLAY_Y}%`
     switch (phase) {
       case 'fade-in':
@@ -123,60 +120,62 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           transform: 'translate(-50%, -50%) scale(0.85)',
           opacity: 0,
           transformOrigin: 'center center',
-          filter: 'none',
         }
       case 'idle':
         return {
           transform: 'translate(-50%, -50%) scale(1)',
           opacity: 1,
           transformOrigin: 'center center',
-          filter: 'none',
         }
       case 'zoom':
-        return {
-          transform: 'translate(-50%, -50%) scale(7)',
-          opacity: 1,
-          transformOrigin: origin,
-          filter: 'none',
-        }
       case 'click':
-        // Botao "pressionado": diminui levemente e escurece
+      case 'rush':
+      case 'reveal':
+        // Mantem o container escalado 5.5x com origin no play durante o resto
         return {
-          transform: 'translate(-50%, -50%) scale(6.55)',
+          transform: 'translate(-50%, -50%) scale(5.5)',
           opacity: 1,
           transformOrigin: origin,
-          filter: 'brightness(0.85)',
-        }
-      case 'rush':
-        // Play vem em direcao ao usuario: scale enorme + glow + fade
-        return {
-          transform: 'translate(-50%, -50%) scale(22)',
-          opacity: 0,
-          transformOrigin: origin,
-          filter:
-            'brightness(1.05) drop-shadow(0 0 60px rgba(31, 78, 121, 0.6))',
-        }
-      case 'reveal':
-        return {
-          transform: 'translate(-50%, -50%) scale(22)',
-          opacity: 0,
-          transformOrigin: origin,
-          filter: 'none',
         }
       default:
         return {
           transform: 'translate(-50%, -50%) scale(1)',
           opacity: 1,
           transformOrigin: 'center center',
+        }
+    }
+  })()
+
+  // Play SVG: efeito proprio em CIMA do efeito do container
+  // (so o play continua a animacao no rush)
+  const playMarkStyle = (() => {
+    switch (phase) {
+      case 'click':
+        return {
+          transform: 'translate(-50%, -50%) scale(0.92)',
+          filter: 'brightness(0.85)',
+        }
+      case 'rush':
+        // Play cresce ENORME (cobre toda a tela) com glow
+        return {
+          transform: 'translate(-50%, -50%) scale(50)',
+          filter:
+            'drop-shadow(0 0 100px rgba(31, 78, 121, 0.6)) drop-shadow(0 0 40px rgba(31, 78, 121, 0.4))',
+        }
+      case 'reveal':
+        // Mantem o play preenchendo a tela; o BG da intro vai dar fade out
+        return {
+          transform: 'translate(-50%, -50%) scale(60)',
+          filter: 'none',
+        }
+      default:
+        return {
+          transform: 'translate(-50%, -50%) scale(1)',
           filter: 'none',
         }
     }
   })()
 
-  // Anel pulsante e ripple ficam em coordenadas absolutas, sobrepostos ao
-  // container do logo, na mesma posicao do play. Como o container do logo
-  // escala (scale > 1) com origin no play, o anel "anda junto" porque tambem
-  // esta no container.
   const showRing = phase === 'zoom' || phase === 'click'
 
   return (
@@ -184,7 +183,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       className="fixed inset-0 z-[9999] bg-white overflow-hidden"
       style={{
         opacity: phase === 'reveal' ? 0 : 1,
-        transition: 'opacity 0.5s ease-out',
+        transition: 'opacity 0.45s ease-out',
         pointerEvents: phase === 'reveal' ? 'none' : 'auto',
       }}
     >
@@ -196,57 +195,99 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         Pular intro {'→'}
       </button>
 
-      {/* Container do logo posicionado no centro da tela */}
+      {/* Container do logo, posicionado no centro da tela */}
       <div
         className="absolute"
         style={{
           top: '50%',
           left: '50%',
-          ...logoStyle,
+          ...containerStyle,
           transition:
-            'transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out, filter 0.4s ease-out',
+            'transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out',
         }}
       >
-        <div className="relative">
+        {/* Container quadrado pra logo + play (PNG e 1:1) */}
+        <div
+          className="relative"
+          style={{ width: '160px', height: '160px' }}
+        >
+          {/* LAYER 1 — Logo PNG. Visivel a intro toda. */}
           <img
             src="/logo-trimark.png"
             alt="Trimark"
-            className="block w-auto select-none"
-            style={{ height: '120px' }}
+            className="absolute inset-0 w-full h-full select-none"
             draggable={false}
+            style={{
+              objectFit: 'contain',
+            }}
           />
 
-          {/* Anel pulsante em cima do play */}
+          {/* LAYER 2 — Play SVG sobreposto exatamente sobre o play do PNG.
+              Tem transform proprio que escalona MUITO durante o rush. */}
+          <div
+            className="absolute"
+            style={{
+              top: `${PLAY_Y}%`,
+              left: `${PLAY_X}%`,
+              width: `${PLAY_SIZE}%`,
+              aspectRatio: '1 / 1',
+              ...playMarkStyle,
+              transition:
+                'transform 0.95s cubic-bezier(0.5, 0, 0.4, 1), filter 0.4s ease-out, opacity 0.4s ease-out',
+            }}
+          >
+            <PlayMark />
+          </div>
+
+          {/* LAYER 3 — Anel pulsante em volta do play */}
           {showRing && (
-            <span
+            <div
               className="absolute pointer-events-none"
               style={{
                 top: `${PLAY_Y}%`,
                 left: `${PLAY_X}%`,
-                width: 14,
-                height: 14,
-                border: '1.5px solid #1F4E79',
-                borderRadius: '9999px',
+                width: `${PLAY_SIZE}%`,
+                aspectRatio: '1 / 1',
                 transform: 'translate(-50%, -50%)',
-                animation: 'intro-ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite',
               }}
-            />
+            >
+              <span
+                className="block w-full h-full rounded-full"
+                style={{
+                  border: '1.5px solid #1F4E79',
+                  animation:
+                    'intro-ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite',
+                }}
+              />
+            </div>
           )}
         </div>
       </div>
 
       <style>{`
         @keyframes intro-ping {
-          0% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0.9;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(2.6);
-            opacity: 0;
-          }
+          0% { transform: scale(1); opacity: 0.85; }
+          100% { transform: scale(2.2); opacity: 0; }
         }
       `}</style>
     </div>
+  )
+}
+
+/**
+ * Botao de play visualmente identico ao do logo Trimark:
+ * circulo navy preenchido + triangulo branco apontando pra direita.
+ */
+function PlayMark() {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-full h-full block"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <circle cx="50" cy="50" r="48" fill="#1B2D5C" />
+      <path d="M 40 30 L 40 70 L 72 50 Z" fill="#FFFFFF" />
+    </svg>
   )
 }

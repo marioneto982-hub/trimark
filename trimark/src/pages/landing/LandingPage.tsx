@@ -569,7 +569,7 @@ function FinalCTA() {
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
                 <a
-                  href="https://wa.me/5500000000000?text=Quero%20conversar%20sobre%20a%20Trimark"
+                  href="https://wa.me/5534974004930?text=Quero%20conversar%20sobre%20a%20Trimark"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -620,7 +620,8 @@ function Footer() {
             <p className="font-semibold mb-3">Contato</p>
             <ul className="space-y-2 text-muted-foreground">
               <li><a href="mailto:contato@trimark.com.br" className="hover:text-foreground transition-colors">contato@trimark.com.br</a></li>
-              <li><a href="#contato" className="hover:text-foreground transition-colors">WhatsApp</a></li>
+              <li><a href="https://wa.me/5534974004930" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">WhatsApp · (34) 97400-4930</a></li>
+              <li><a href="https://www.instagram.com/trimarkagencia" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram · @trimarkagencia</a></li>
             </ul>
           </div>
           <div>

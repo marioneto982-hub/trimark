@@ -80,21 +80,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (cancelled) return
-      setSession(data.session)
-      setUser(data.session?.user ?? null)
-      const p = await loadProfile(data.session?.user ?? null)
-      if (cancelled) return
-      setProfile(p)
-      setLoading(false)
-    })
+    console.log('[AuthContext] mount: getSession()')
+    supabase.auth.getSession()
+      .then(async ({ data, error }) => {
+        console.log('[AuthContext] getSession resolved', { hasSession: !!data?.session, error })
+        if (cancelled) return
+        setSession(data.session)
+        setUser(data.session?.user ?? null)
+        try {
+          const p = await loadProfile(data.session?.user ?? null)
+          console.log('[AuthContext] loadProfile done', p)
+          if (cancelled) return
+          setProfile(p)
+        } catch (err) {
+          console.error('[AuthContext] loadProfile threw', err)
+        } finally {
+          if (!cancelled) setLoading(false)
+        }
+      })
+      .catch((err) => {
+        console.error('[AuthContext] getSession failed', err)
+        if (!cancelled) setLoading(false)
+      })
 
     const { data: sub } = supabase.auth.onAuthStateChange(async (_event, sess) => {
+      console.log('[AuthContext] onAuthStateChange', _event, !!sess)
       setSession(sess)
       setUser(sess?.user ?? null)
-      const p = await loadProfile(sess?.user ?? null)
-      setProfile(p)
+      try {
+        const p = await loadProfile(sess?.user ?? null)
+        setProfile(p)
+      } catch (err) {
+        console.error('[AuthContext] loadProfile (auth change) threw', err)
+      } finally {
+        // garante que loading sai mesmo se getSession() ficou pendurado
+        if (!cancelled) setLoading(false)
+      }
     })
 
     return () => {

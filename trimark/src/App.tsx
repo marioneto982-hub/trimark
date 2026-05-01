@@ -2,7 +2,6 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider, useAuth } from '@/lib/AuthContext'
 import { ProtectedRoute } from '@/components/shared/ProtectedRoute'
-import { PlaceholderPage } from '@/components/shared/PlaceholderPage'
 import LoginPage from '@/pages/login/LoginPage'
 import LandingPage from '@/pages/landing/LandingPage'
 import AdminLayout from '@/pages/admin/AdminLayout'
@@ -18,6 +17,9 @@ import InvoiceDetailPage from '@/pages/admin/finance/InvoiceDetailPage'
 import LibraryListPage from '@/pages/admin/library/LibraryListPage'
 import LibraryNewPage from '@/pages/admin/library/LibraryNewPage'
 import LibraryDetailPage from '@/pages/admin/library/LibraryDetailPage'
+import PipelinePage from '@/pages/admin/pipeline/PipelinePage'
+import SpecialtiesPage from '@/pages/admin/specialties/SpecialtiesPage'
+import SettingsPage from '@/pages/admin/settings/SettingsPage'
 import PortalLayout from '@/pages/portal/PortalLayout'
 import PortalDashboard from '@/pages/portal/PortalDashboard'
 import ApprovalsPage from '@/pages/portal/ApprovalsPage'
@@ -74,47 +76,9 @@ export default function App() {
               <Route path="library/:id" element={<LibraryDetailPage />} />
               <Route path="finance" element={<InvoicesPage />} />
               <Route path="finance/:id" element={<InvoiceDetailPage />} />
-              <Route
-                path="pipeline"
-                element={
-                  <PlaceholderPage
-                    title="Pipeline comercial"
-                    prdRef="PRD §9.2 — Prospects"
-                    bullets={[
-                      'Kanban com estágios: lead, contacted, meeting_scheduled, proposal_sent, negotiating, closed_won, closed_lost',
-                      'Conversão para cliente ao fechar',
-                    ]}
-                  />
-                }
-              />
-              <Route
-                path="specialties"
-                element={
-                  <PlaceholderPage
-                    title="Especialidades"
-                    prdRef="PRD §4.2 — catálogo global"
-                    bullets={[
-                      '41 specialties já populadas no banco',
-                      'CRUD apenas para admin',
-                      'Cada uma tem council (CFM/CFO/CFP/...) e ethics_rules_summary',
-                    ]}
-                  />
-                }
-              />
-              <Route
-                path="settings"
-                element={
-                  <PlaceholderPage
-                    title="Configurações"
-                    prdRef="PRD §3 — Identidade visual e integrações"
-                    bullets={[
-                      'Branding da agência (logo, cores)',
-                      'Gestão de usuários internos e papéis',
-                      'Tokens de integrações (Asaas, Z-API, Resend)',
-                    ]}
-                  />
-                }
-              />
+              <Route path="pipeline" element={<PipelinePage />} />
+              <Route path="specialties" element={<SpecialtiesPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
 
             <Route

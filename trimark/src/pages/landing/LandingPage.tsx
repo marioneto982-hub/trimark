@@ -126,9 +126,9 @@ function Hero() {
           <img
             src="/logo-trimark.png"
             alt="Trimark"
-            className="mx-auto mt-8 h-16 sm:h-20 md:h-24 w-auto drop-shadow-sm"
-            width={400}
-            height={96}
+            className="mx-auto mt-8 h-32 sm:h-44 md:h-56 lg:h-64 w-auto drop-shadow-sm"
+            width={640}
+            height={256}
           />
         </Reveal>
 

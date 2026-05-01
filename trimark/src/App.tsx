@@ -10,6 +10,9 @@ import AdminDashboard from '@/pages/admin/AdminDashboard'
 import ClientsListPage from '@/pages/admin/clients/ClientsListPage'
 import ClientNewPage from '@/pages/admin/clients/ClientNewPage'
 import ClientDetailPage from '@/pages/admin/clients/ClientDetailPage'
+import CalendarPage from '@/pages/admin/calendar/CalendarPage'
+import PostNewPage from '@/pages/admin/calendar/PostNewPage'
+import PostDetailPage from '@/pages/admin/calendar/PostDetailPage'
 import PortalLayout from '@/pages/portal/PortalLayout'
 import PortalDashboard from '@/pages/portal/PortalDashboard'
 import './App.css'
@@ -54,21 +57,9 @@ export default function App() {
               <Route path="clients" element={<ClientsListPage />} />
               <Route path="clients/new" element={<ClientNewPage />} />
               <Route path="clients/:id" element={<ClientDetailPage />} />
-              <Route
-                path="calendar"
-                element={
-                  <PlaceholderPage
-                    title="Calendário editorial"
-                    prdRef="PRD §5 — Módulo 2"
-                    bullets={[
-                      'Visualização mês / semana / dia',
-                      'Cards de post arrastáveis',
-                      'Status: rascunho → em criação → aguardando aprovação → publicado',
-                      'Cota mensal por cliente vs plano contratado',
-                    ]}
-                  />
-                }
-              />
+              <Route path="calendar" element={<CalendarPage />} />
+              <Route path="calendar/posts/new" element={<PostNewPage />} />
+              <Route path="calendar/posts/:id" element={<PostDetailPage />} />
               <Route
                 path="library"
                 element={

@@ -13,6 +13,8 @@ import ClientDetailPage from '@/pages/admin/clients/ClientDetailPage'
 import CalendarPage from '@/pages/admin/calendar/CalendarPage'
 import PostNewPage from '@/pages/admin/calendar/PostNewPage'
 import PostDetailPage from '@/pages/admin/calendar/PostDetailPage'
+import InvoicesPage from '@/pages/admin/finance/InvoicesPage'
+import InvoiceDetailPage from '@/pages/admin/finance/InvoiceDetailPage'
 import PortalLayout from '@/pages/portal/PortalLayout'
 import PortalDashboard from '@/pages/portal/PortalDashboard'
 import ApprovalsPage from '@/pages/portal/ApprovalsPage'
@@ -78,20 +80,8 @@ export default function App() {
                   />
                 }
               />
-              <Route
-                path="finance"
-                element={
-                  <PlaceholderPage
-                    title="Financeiro interno"
-                    prdRef="PRD §9 — Módulo 6"
-                    bullets={[
-                      'Dashboard financeiro: receita prevista, realizada, inadimplência',
-                      'DRE simplificado',
-                      'Gestão de comissões',
-                    ]}
-                  />
-                }
-              />
+              <Route path="finance" element={<InvoicesPage />} />
+              <Route path="finance/:id" element={<InvoiceDetailPage />} />
               <Route
                 path="pipeline"
                 element={

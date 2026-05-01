@@ -20,13 +20,11 @@ export default function PortalLayout() {
     <div className="min-h-screen bg-muted/20">
       <header className="border-b bg-background">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-semibold tracking-widest text-primary uppercase">
-              Trimark
-            </p>
-            <p className="text-sm text-muted-foreground">
+          <div className="flex items-center gap-3">
+            <img src="/logo-trimark.png" alt="Trimark" className="h-7 w-auto" />
+            <span className="text-xs text-muted-foreground border-l pl-3 border-border">
               {profile.display_name ?? 'Portal do cliente'}
-            </p>
+            </span>
           </div>
           <button
             type="button"

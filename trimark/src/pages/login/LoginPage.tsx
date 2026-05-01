@@ -38,11 +38,14 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Entrar na Trimark</CardTitle>
-          <CardDescription>
-            Acesso da equipe interna e do portal do cliente.
-          </CardDescription>
+        <CardHeader className="space-y-3">
+          <img src="/logo-trimark.png" alt="Trimark" className="h-8 w-auto" />
+          <div>
+            <CardTitle>Entrar na Trimark</CardTitle>
+            <CardDescription>
+              Acesso da equipe interna e do portal do cliente.
+            </CardDescription>
+          </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">

@@ -34,10 +34,8 @@ export default function AdminLayout() {
     <div className="min-h-screen flex bg-muted/20">
       <aside className="w-64 shrink-0 border-r bg-background flex flex-col">
         <div className="px-5 py-5 border-b">
-          <p className="text-[10px] font-semibold tracking-widest text-primary uppercase">
-            Trimark
-          </p>
-          <p className="text-sm text-muted-foreground mt-0.5">Painel da equipe</p>
+          <img src="/logo-trimark.png" alt="Trimark" className="h-6 w-auto" />
+          <p className="text-xs text-muted-foreground mt-1">Painel da equipe</p>
         </div>
         <nav className="flex-1 p-3 space-y-1">
           {NAV.map(({ to, label, icon: Icon }) => (

@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext'
 import { ProtectedRoute } from '@/components/shared/ProtectedRoute'
 import { PlaceholderPage } from '@/components/shared/PlaceholderPage'
 import LoginPage from '@/pages/login/LoginPage'
+import LandingPage from '@/pages/landing/LandingPage'
 import AdminLayout from '@/pages/admin/AdminLayout'
 import AdminDashboard from '@/pages/admin/AdminDashboard'
 import ClientsListPage from '@/pages/admin/clients/ClientsListPage'
@@ -19,7 +20,7 @@ const queryClient = new QueryClient({
   },
 })
 
-function RootRedirect() {
+function RootRoute() {
   const { loading, profile } = useAuth()
   if (loading) {
     return (
@@ -28,7 +29,8 @@ function RootRedirect() {
       </div>
     )
   }
-  if (!profile) return <Navigate to="/login" replace />
+  // Não logado → landing pública. Logado → redireciona pelo papel.
+  if (!profile) return <LandingPage />
   return <Navigate to={profile.kind === 'internal' ? '/admin' : '/portal'} replace />
 }
 
@@ -203,7 +205,7 @@ export default function App() {
               />
             </Route>
 
-            <Route path="/" element={<RootRedirect />} />
+            <Route path="/" element={<RootRoute />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AuthProvider>

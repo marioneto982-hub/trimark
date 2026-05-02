@@ -657,12 +657,14 @@ function Footer() {
 // -----------------------------------------------------------------------------
 const FOUNDERS = [
   {
+    photo: '/founders/marcelia.jpg',
     initial: 'M',
     name: 'Marcelia',
     role: 'Cofundadora · Estratégia',
     bio: 'Dentista de formação. Lidera posicionamento, estratégia e relacionamento com clientes.',
   },
   {
+    photo: '/founders/thayna.jpg',
     initial: 'T',
     name: 'Thayná',
     role: 'Cofundadora · Conteúdo & Marca',
@@ -692,19 +694,36 @@ function Founders() {
         </Reveal>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {FOUNDERS.map(({ initial, name, role, bio }, i) => (
+          {FOUNDERS.map(({ photo, initial, name, role, bio }, i) => (
             <Reveal key={name} delay={i * 120}>
               <article className="rounded-3xl border border-border bg-background p-6 md:p-8 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full flex flex-col items-center text-center">
-                {/* Placeholder visual da fundadora — será trocado pela foto real */}
-                <div
-                  className="size-32 md:size-40 rounded-full flex items-center justify-center text-5xl md:text-6xl font-semibold text-primary-foreground select-none shadow-lg shadow-primary/20"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #1B2D5C 0%, #2A4280 100%)',
-                  }}
-                  aria-hidden="true"
-                >
-                  {initial}
+                {/* Foto circular da fundadora.
+                    onError mostra a inicial como fallback caso a imagem nao
+                    carregue (ex: arquivo ainda nao subido). */}
+                <div className="size-40 md:size-48 rounded-full overflow-hidden ring-4 ring-primary/10 shadow-lg shadow-primary/20 relative">
+                  <img
+                    src={photo}
+                    alt={name}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'center 20%' }}
+                    onError={(e) => {
+                      const target = e.currentTarget
+                      target.style.display = 'none'
+                      const fallback = target.nextElementSibling as HTMLElement | null
+                      if (fallback) fallback.style.display = 'flex'
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center text-5xl md:text-6xl font-semibold text-primary-foreground select-none"
+                    style={{
+                      background:
+                        'linear-gradient(135deg, #1B2D5C 0%, #2A4280 100%)',
+                      display: 'none',
+                    }}
+                    aria-hidden="true"
+                  >
+                    {initial}
+                  </div>
                 </div>
                 <h3 className="mt-6 text-2xl font-semibold tracking-tight">
                   {name}

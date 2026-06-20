@@ -116,8 +116,8 @@ export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }
         </Field>
       </Section>
 
-      <Section title="Especialidade e conselho">
-        <Field label="Especialidade *">
+      <Section title="Segmento e especialidade">
+        <Field label="Segmento / Especialidade *">
           <Select value={specialtyId} onChange={(e) => setSpecialtyId(e.target.value)} required>
             <option value="">— escolher —</option>
             {specialties.data?.map((s) => (
@@ -127,7 +127,7 @@ export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }
             ))}
           </Select>
         </Field>
-        <Field label="Conselho (CRM/CRO/CRP/...)">
+        <Field label="Conselho profissional (se aplicável)">
           <Input value={councilType} onChange={(e) => setCouncilType(e.target.value)} />
         </Field>
         <Field label="Número do conselho">
@@ -237,7 +237,4 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   return (
     <div className="space-y-1.5">
       <Label>{label}</Label>
-      {children}
-    </div>
-  )
-}
+      {child

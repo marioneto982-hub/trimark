@@ -23,18 +23,19 @@ export default function SpecialtiesPage() {
   return (
     <div className="p-8 space-y-6 max-w-5xl">
       <header>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">PRD §4.2</p>
-        <h1 className="text-2xl font-semibold mt-1">Especialidades</h1>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">Catálogo</p>
+        <h1 className="text-2xl font-semibold mt-1">Segmentos e especialidades</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          Catálogo global de especialidades atendidas pela Trimark, com conselho regulador
-          e resumo das regras éticas que devem orientar conteúdos publicados.
+          Catálogo global de segmentos e especialidades atendidos pela Trimark. Para áreas
+          reguladas (saúde, advocacia, etc.), inclui o conselho e o resumo das regras éticas
+          que devem orientar os conteúdos publicados.
         </p>
       </header>
 
       <div className="relative max-w-md">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
         <Input
-          placeholder="Buscar especialidade ou categoria…"
+          placeholder="Buscar segmento ou especialidade…"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           className="pl-9"
@@ -64,11 +65,4 @@ export default function SpecialtiesPage() {
                     </CardContent>
                   )}
                 </Card>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+              

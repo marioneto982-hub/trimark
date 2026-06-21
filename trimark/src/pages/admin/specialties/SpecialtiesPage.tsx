@@ -65,4 +65,11 @@ export default function SpecialtiesPage() {
                     </CardContent>
                   )}
                 </Card>
-              
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}

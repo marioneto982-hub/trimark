@@ -12,7 +12,6 @@ interface AgencyRow {
   name: string
   primary_color: string | null
   logo_url: string | null
-  contact_email: string | null
 }
 
 interface UserRow {
@@ -38,7 +37,7 @@ export default function SettingsPage() {
     if (profile?.kind !== 'internal') return
     void supabase
       .from('agencies')
-      .select('id, name, primary_color, logo_url, contact_email')
+      .select('id, name, primary_color, logo_url')
       .eq('id', profile.agency_id)
       .single()
       .then(({ data }) => { if (data) setAgency(data as AgencyRow) })
@@ -60,7 +59,6 @@ export default function SettingsPage() {
         name: agency.name,
         primary_color: agency.primary_color,
         logo_url: agency.logo_url,
-        contact_email: agency.contact_email,
       })
       .eq('id', agency.id)
     setSaving(false)
@@ -101,15 +99,9 @@ export default function SettingsPage() {
               <Label htmlFor="ag-name">Nome</Label>
               <Input id="ag-name" value={agency.name ?? ''} onChange={(e) => setAgency({ ...agency, name: e.target.value })} />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <Label htmlFor="ag-color">Cor primária (hex)</Label>
-                <Input id="ag-color" value={agency.primary_color ?? ''} placeholder="#1F4E79" onChange={(e) => setAgency({ ...agency, primary_color: e.target.value || null })} />
-              </div>
-              <div>
-                <Label htmlFor="ag-email">E-mail de contato</Label>
-                <Input id="ag-email" type="email" value={agency.contact_email ?? ''} onChange={(e) => setAgency({ ...agency, contact_email: e.target.value || null })} />
-              </div>
+            <div>
+              <Label htmlFor="ag-color">Cor primária (hex)</Label>
+              <Input id="ag-color" value={agency.primary_color ?? ''} placeholder="#1F4E79" onChange={(e) => setAgency({ ...agency, primary_color: e.target.value || null })} />
             </div>
             <div>
               <Label htmlFor="ag-logo">URL do logo</Label>

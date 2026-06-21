@@ -56,6 +56,17 @@ const EMPTY: FormState = {
   active: true,
 }
 
+const REQUEST_TIMEOUT_MS = 15_000
+
+function describeError(error: { message?: string } | null): string {
+  const msg = error?.message ?? 'Erro desconhecido.'
+  if (/abort|timeout|signal/i.test(msg)) {
+    return 'A requisição demorou demais e foi cancelada. Feche outras abas do sistema, ' +
+      'atualize a página (Ctrl+Shift+R) ou saia e entre de novo, e tente novamente.'
+  }
+  return msg
+}
+
 function toNumber(v: string): number {
   const n = Number(v.replace(',', '.'))
   return Number.isFinite(n) ? n : 0
@@ -73,6 +84,7 @@ export function PlansSettings({ agencyId, canWrite }: { agencyId: string; canWri
 
   const plansQuery = useQuery({
     queryKey: ['plans-admin', agencyId],
+    retry: 1,
     queryFn: async (): Promise<PlanRow[]> => {
       const { data, error } = await supabase
         .from('plans')
@@ -80,7 +92,8 @@ export function PlansSettings({ agencyId, canWrite }: { agencyId: string; canWri
         .eq('agency_id', agencyId)
         .order('active', { ascending: false })
         .order('monthly_price')
-      if (error) throw error
+        .abortSignal(AbortSignal.timeout(REQUEST_TIMEOUT_MS))
+      if (error) throw new Error(describeError(error))
       return (data ?? []) as unknown as PlanRow[]
     },
   })
@@ -120,11 +133,18 @@ export function PlansSettings({ agencyId, canWrite }: { agencyId: string; canWri
       }
 
       if (editingId) {
-        const { error } = await supabase.from('plans').update(payload).eq('id', editingId)
-        if (error) throw error
+        const { error } = await supabase
+          .from('plans')
+          .update(payload)
+          .eq('id', editingId)
+          .abortSignal(AbortSignal.timeout(REQUEST_TIMEOUT_MS))
+        if (error) throw new Error(describeError(error))
       } else {
-        const { error } = await supabase.from('plans').insert(payload)
-        if (error) throw error
+        const { error } = await supabase
+          .from('plans')
+          .insert(payload)
+          .abortSignal(AbortSignal.timeout(REQUEST_TIMEOUT_MS))
+        if (error) throw new Error(describeError(error))
       }
     },
     onSuccess: () => {
@@ -136,10 +156,15 @@ export function PlansSettings({ agencyId, canWrite }: { agencyId: string; canWri
 
   const toggleActive = useMutation({
     mutationFn: async (p: PlanRow) => {
-      const { error } = await supabase.from('plans').update({ active: !p.active }).eq('id', p.id)
-      if (error) throw error
+      const { error } = await supabase
+        .from('plans')
+        .update({ active: !p.active })
+        .eq('id', p.id)
+        .abortSignal(AbortSignal.timeout(REQUEST_TIMEOUT_MS))
+      if (error) throw new Error(describeError(error))
     },
     onSuccess: invalidate,
+    onError: (e) => setError(e instanceof Error ? e.message : String(e)),
   })
 
   function startEdit(p: PlanRow) {
@@ -253,7 +278,14 @@ export function PlansSettings({ agencyId, canWrite }: { agencyId: string; canWri
         <CardContent>
           {plansQuery.isLoading && <p className="text-sm text-muted-foreground">Carregando…</p>}
           {plansQuery.isError && (
-            <p className="text-sm text-destructive">Falha ao carregar planos.</p>
+            <div className="space-y-2">
+              <p className="text-sm text-destructive">
+                {describeError(plansQuery.error as { message?: string })}
+              </p>
+              <Button type="button" variant="outline" size="sm" onClick={() => void plansQuery.refetch()}>
+                Tentar de novo
+              </Button>
+            </div>
           )}
 
           {!plansQuery.isLoading && plans.length === 0 && (

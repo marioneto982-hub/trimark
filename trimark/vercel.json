@@ -4,9 +4,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)\\.(png|jpg|jpeg|webp|gif|svg|ico|woff2?)",
@@ -21,6 +18,7 @@
       ]
     }
   ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

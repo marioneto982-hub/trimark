@@ -69,7 +69,7 @@ export default function SettingsPage() {
   return (
     <div className="p-8 space-y-6 max-w-4xl">
       <header>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">PRD §3</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">Configurações</p>
         <h1 className="text-2xl font-semibold mt-1">Configurações</h1>
       </header>
 
@@ -126,7 +126,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Usuários internos</CardTitle>
-            <CardDescription>Membros da equipe e papéis (PRD §13).</CardDescription>
+            <CardDescription>Membros da equipe e papéis.</CardDescription>
           </CardHeader>
           <CardContent>
             <table className="w-full text-sm">
@@ -164,8 +164,7 @@ export default function SettingsPage() {
           <CardHeader>
             <CardTitle>Integrações</CardTitle>
             <CardDescription>
-              Tokens de Asaas, Z-API, Resend e Anthropic ficam em variáveis de ambiente das Edge Functions
-              (PRD §15). Para alterá-los, atualize os secrets no painel do Supabase.
+              Tokens de Asaas, Z-API, Resend e Anthropic ficam em variáveis de ambiente das Edge Functions. Para alterá-los, atualize os secrets no painel do Supabase.
             </CardDescription>
           </CardHeader>
           <CardContent className="text-sm space-y-2 text-muted-foreground">

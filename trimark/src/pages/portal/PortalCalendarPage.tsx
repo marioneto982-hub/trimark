@@ -61,7 +61,7 @@ export default function PortalCalendarPage() {
       <header>
         <h1 className="text-2xl font-semibold">Calendário</h1>
         <p className="text-muted-foreground mt-1 text-sm">
-          Visão dos seus posts dos próximos dias (PRD §6.2.3).
+          Visão dos seus posts dos próximos dias.
         </p>
       </header>
 

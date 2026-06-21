@@ -26,10 +26,10 @@ export default function ClientsListPage() {
     <div className="p-8 space-y-6 max-w-6xl">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Módulo 1 · CRM</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">CRM</p>
           <h1 className="text-2xl font-semibold mt-1">Clientes</h1>
           <p className="text-muted-foreground text-sm mt-1">
-            Gestão completa dos clientes da agência (PRD §4).
+            Gestão completa dos clientes da agência.
           </p>
         </div>
         <Link to="/admin/clients/new">

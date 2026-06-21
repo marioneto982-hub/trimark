@@ -48,7 +48,7 @@ export default function PortalFinancePage() {
       <header>
         <h1 className="text-2xl font-semibold">Financeiro</h1>
         <p className="text-muted-foreground mt-1 text-sm">
-          Suas faturas: paga, em aberto, vencida (PRD §6.2.5).
+          Suas faturas: paga, em aberto, vencida.
         </p>
       </header>
 

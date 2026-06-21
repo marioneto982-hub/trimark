@@ -46,7 +46,7 @@ export default function ApprovalsPage() {
       <header>
         <h1 className="text-2xl font-semibold">Aprovações pendentes</h1>
         <p className="text-muted-foreground mt-1 text-sm">
-          Posts esperando sua decisão. Você pode aprovar, rejeitar, ou pedir revisão (PRD §6.2.2).
+          Posts esperando sua decisão. Você pode aprovar, rejeitar, ou pedir revisão.
         </p>
       </header>
 

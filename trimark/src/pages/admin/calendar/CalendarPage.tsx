@@ -78,7 +78,7 @@ export default function CalendarPage() {
     <div className="p-8 space-y-6 max-w-7xl">
       <header className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Módulo 2 · PRD §5</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Calendário</p>
           <h1 className="text-2xl font-semibold mt-1">Calendário editorial</h1>
           <p className="text-muted-foreground text-sm mt-1">
             Posts agendados, status do fluxo de aprovação e cota mensal.

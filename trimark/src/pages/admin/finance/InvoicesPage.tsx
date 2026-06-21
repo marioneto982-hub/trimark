@@ -35,7 +35,7 @@ export default function InvoicesPage() {
   return (
     <div className="p-8 space-y-6 max-w-6xl">
       <header>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">Módulo 6 · PRD §9</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">Financeiro</p>
         <h1 className="text-2xl font-semibold mt-1">Financeiro</h1>
         <p className="text-muted-foreground text-sm mt-1">
           Faturas de todos os clientes, status, totais do período.

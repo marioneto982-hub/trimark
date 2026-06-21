@@ -21,7 +21,7 @@ export default function LibraryListPage() {
     <div className="p-8 space-y-6 max-w-6xl">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Módulo 4 · PRD §7</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Biblioteca</p>
           <h1 className="text-2xl font-semibold mt-1">Biblioteca</h1>
           <p className="text-muted-foreground text-sm mt-1">
             Conteúdos por especialidade — ideias, artigos, datas, templates, casos éticos.

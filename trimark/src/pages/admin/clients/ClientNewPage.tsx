@@ -13,10 +13,10 @@ export default function ClientNewPage() {
   return (
     <div className="p-8 max-w-3xl space-y-6">
       <header>
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">PRD §4</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">CRM</p>
         <h1 className="text-2xl font-semibold mt-1">Novo cliente</h1>
         <p className="text-muted-foreground text-sm mt-1">
-          Cadastro rápido. Wizard de 4 passos (PRD §4.1) entra em iteração futura.
+          Cadastro rápido do cliente.
         </p>
       </header>
 

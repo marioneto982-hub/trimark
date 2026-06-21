@@ -57,10 +57,10 @@ export default function AdminDashboard() {
           </CardDescription>
         </CardHeader>
         <CardContent className="text-sm text-muted-foreground space-y-1">
-          <p>• Cadastro de clientes (PRD §4)</p>
-          <p>• Calendário editorial com drag & drop (PRD §5)</p>
-          <p>• Portal do cliente + fluxo de aprovação (PRD §6)</p>
-          <p>• Cobrança Asaas + WhatsApp Z-API (PRD §8)</p>
+          <p>• Cadastro de clientes</p>
+          <p>• Calendário editorial com drag & drop</p>
+          <p>• Portal do cliente + fluxo de aprovação</p>
+          <p>• Cobrança Asaas + WhatsApp Z-API</p>
         </CardContent>
       </Card>
     </div>

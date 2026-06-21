@@ -96,7 +96,7 @@ export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }
         <Field label="Nome completo *">
           <Input value={fullName} onChange={(e) => setFullName(e.target.value)} required />
         </Field>
-        <Field label="Nome fantasia / clínica">
+        <Field label="Nome fantasia / empresa">
           <Input value={tradeName} onChange={(e) => setTradeName(e.target.value)} />
         </Field>
         <Field label="Tipo de documento">

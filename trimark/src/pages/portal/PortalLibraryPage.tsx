@@ -47,7 +47,7 @@ export default function PortalLibraryPage() {
       <header>
         <h1 className="text-2xl font-semibold">Biblioteca</h1>
         <p className="text-muted-foreground mt-1 text-sm">
-          Conteúdos, ideias e templates filtrados pela sua especialidade (PRD §7.5).
+          Conteúdos, ideias e templates filtrados pelo seu segmento.
         </p>
       </header>
 

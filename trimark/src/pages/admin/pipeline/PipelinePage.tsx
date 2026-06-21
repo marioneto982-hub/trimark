@@ -39,7 +39,7 @@ export default function PipelinePage() {
     <div className="p-8 space-y-6">
       <header className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">PRD §9.2</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Pipeline</p>
           <h1 className="text-2xl font-semibold mt-1">Pipeline comercial</h1>
           <p className="text-muted-foreground text-sm mt-1">
             Prospects em todos os estágios. Drag-and-drop simplificado: mude o estágio pelo seletor.

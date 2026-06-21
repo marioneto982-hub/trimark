@@ -141,7 +141,7 @@ export default function ClientDetailPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Em construção · PRD §4.3</CardTitle>
+          <CardTitle>Em construção</CardTitle>
         </CardHeader>
         <CardContent className="text-sm text-muted-foreground space-y-1">
           <p>• Linha do tempo de interações (e-mails, reuniões, propostas)</p>

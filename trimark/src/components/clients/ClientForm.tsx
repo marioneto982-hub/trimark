@@ -20,6 +20,14 @@ interface Props {
 
 const STATUS: ClientStatus[] = ['prospect', 'onboarding', 'active', 'suspended', 'canceled']
 
+const STATUS_LABELS: Record<ClientStatus, string> = {
+  prospect: 'Prospecto',
+  onboarding: 'Em integração',
+  active: 'Ativo',
+  suspended: 'Suspenso',
+  canceled: 'Cancelado',
+}
+
 export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }: Props) {
   const specialties = useSpecialties()
   const plans = usePlans()
@@ -155,7 +163,15 @@ export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }
 
       <Section title="Contrato e cobrança">
         <Field label="Plano">
-          <Select value={planId} onChange={(e) => setPlanId(e.target.value)}>
+          <Select
+            value={planId}
+            onChange={(e) => {
+              const id = e.target.value
+              setPlanId(id)
+              const plan = plans.data?.find((p) => p.id === id)
+              if (plan) setContractValue(String(plan.monthly_price))
+            }}
+          >
             <option value="">— sem plano —</option>
             {plans.data?.map((p) => (
               <option key={p.id} value={p.id}>
@@ -191,7 +207,7 @@ export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }
           <Select value={status} onChange={(e) => setStatus(e.target.value as ClientStatus)}>
             {STATUS.map((s) => (
               <option key={s} value={s}>
-                {s}
+                {STATUS_LABELS[s]}
               </option>
             ))}
           </Select>

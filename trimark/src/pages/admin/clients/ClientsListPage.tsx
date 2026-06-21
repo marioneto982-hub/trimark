@@ -10,8 +10,8 @@ import { formatCurrencyBRL, formatDateBR } from '@/lib/format'
 import type { ClientStatus } from '@/types'
 
 const STATUS_LABEL: Record<ClientStatus, string> = {
-  prospect:   'Prospect',
-  onboarding: 'Onboarding',
+  prospect:   'Prospecto',
+  onboarding: 'Em integração',
   active:     'Ativo',
   suspended:  'Suspenso',
   canceled:   'Cancelado',

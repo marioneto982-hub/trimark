@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/lib/AuthContext'
 import { supabase } from '@/lib/supabase'
+import { PlansSettings } from './PlansSettings'
 
 interface AgencyRow {
   id: string
@@ -22,7 +23,7 @@ interface UserRow {
   active: boolean
 }
 
-const TABS = ['Identidade', 'Equipe', 'Integrações'] as const
+const TABS = ['Identidade', 'Planos', 'Equipe', 'Integrações'] as const
 type Tab = typeof TABS[number]
 
 export default function SettingsPage() {
@@ -120,6 +121,13 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {tab === 'Planos' && (
+        <PlansSettings
+          agencyId={profile.agency_id}
+          canWrite={profile.role === 'admin' || profile.role === 'manager'}
+        />
       )}
 
       {tab === 'Equipe' && (

@@ -165,7 +165,7 @@ export function ClientForm({ agencyId, initial, submitting, onCancel, onSubmit }
           </Select>
           {plans.data && plans.data.length === 0 && (
             <p className="text-xs text-muted-foreground mt-1">
-              Nenhum plano cadastrado ainda. Cadastre em /admin/settings (TODO Phase 1).
+              Nenhum plano cadastrado ainda. Cadastre na aba “Planos” em Configurações.
             </p>
           )}
         </Field>

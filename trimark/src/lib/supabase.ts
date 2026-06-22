@@ -35,9 +35,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    // Bypass do navigator.locks — quebra em React StrictMode (dev) e o
-    // app é single-tab; não precisamos da coordenação cross-tab.
-    lock: async (_name, _acquireTimeout, fn) => fn(),
+    // NÃO sobrescrever `lock`. O supabase-js usa o navigator.locks por padrão
+    // para serializar o acesso ao token de auth. O override no-op anterior
+    // (`lock: () => fn()`) quebrava essa serialização: quando o autoRefreshToken
+    // rodava junto com uma escrita, o getSession() do client travava e o fetch
+    // da gravação NUNCA era disparado — botão "Salvando…" infinito, sem nenhuma
+    // requisição na aba Rede. Diagnóstico em [[sessao-cadastro-planos-e-bug-salvar-2026-06-20]].
   },
   global: {
     fetch: fetchWithTimeout,

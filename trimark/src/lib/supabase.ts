@@ -30,31 +30,36 @@ function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit): Promise
   return fetch(input, { ...init, signal: AbortSignal.timeout(NETWORK_TIMEOUT_MS) })
 }
 
-// Lock de auth resiliente.
-// - Serializa o acesso ao token via navigator.locks → evita a corrida entre o
-//   autoRefreshToken e as escritas que travava o getSession (bug "Salvando…").
-// - Mas com TIMEOUT: se o lock ficar preso (motivo do "Carregando…" infinito que
-//   levou ao antigo `lock: () => fn()` no-op), prossegue em vez de travar o app.
-// Cobre os dois modos de falha sem o efeito colateral de nenhum dos extremos.
-const LOCK_ACQUIRE_TIMEOUT_MS = 5_000
-
+// Lock de auth à prova de deadlock.
+//
+// Histórico do bug: o lock padrão do navigator.locks (e também o resilientLock
+// anterior, baseado em AbortSignal) podia FICAR RETIDO e nunca liberar — uma aba
+// travada ou a reentrância interna do supabase-js segurava o lock, getSession()
+// nunca resolvia e o app ficava preso em "Carregando…" infinito (1 lock HELD,
+// 0 pending, ZERO requisições de rede). O outro extremo (lock no-op `() => fn()`)
+// desativava a serialização e gerava corrida no refresh do token ("Salvando…").
+//
+// Solução: navigator.locks.request com { ifAvailable: true }. Nunca ESPERA pelo
+// lock. Se estiver livre, adquire e serializa o token normalmente (evita a
+// corrida). Se estiver ocupado/preso, o callback recebe `lock === null` e a
+// operação roda SEM o lock em vez de travar — getSession() jamais bloqueia.
 async function resilientLock<R>(
   name: string,
-  acquireTimeout: number,
+  _acquireTimeout: number,
   fn: () => Promise<R>,
 ): Promise<R> {
   if (typeof navigator === 'undefined' || !navigator.locks?.request) {
     return fn()
   }
-  const timeoutMs = acquireTimeout && acquireTimeout > 0 ? acquireTimeout : LOCK_ACQUIRE_TIMEOUT_MS
   try {
     return await navigator.locks.request(
       `lock:${name}`,
-      { mode: 'exclusive', signal: AbortSignal.timeout(timeoutMs) },
-      async () => fn(),
+      { mode: 'exclusive', ifAvailable: true },
+      // `lock` é null quando não estava disponível → roda fn() sem o lock.
+      async (_lock) => fn(),
     )
   } catch {
-    // Não conseguiu o lock no tempo (preso/abortado) → roda mesmo assim.
+    // Qualquer falha do navigator.locks → roda mesmo assim. Nunca trava o app.
     return fn()
   }
 }
@@ -64,8 +69,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    // Lock com timeout (ver resilientLock acima): serializa o token sem o
-    // deadlock do navigator.locks puro nem a corrida do no-op antigo.
+    // Lock com ifAvailable (ver resilientLock acima): serializa o token quando
+    // possível, mas nunca bloqueia a inicialização. Deadlock-proof.
     lock: resilientLock,
   },
   global: {

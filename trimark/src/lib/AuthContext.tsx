@@ -80,46 +80,58 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false
-    console.log('[AuthContext] mount: getSession()')
-    supabase.auth.getSession()
-      .then(async ({ data, error }) => {
-        console.log('[AuthContext] getSession resolved', { hasSession: !!data?.session, error })
-        if (cancelled) return
-        setSession(data.session)
-        setUser(data.session?.user ?? null)
-        try {
-          const p = await loadProfile(data.session?.user ?? null)
-          console.log('[AuthContext] loadProfile done', p)
-          if (cancelled) return
-          setProfile(p)
-        } catch (err) {
-          console.error('[AuthContext] loadProfile threw', err)
-        } finally {
-          if (!cancelled) setLoading(false)
-        }
-      })
-      .catch((err) => {
-        console.error('[AuthContext] getSession failed', err)
-        if (!cancelled) setLoading(false)
-      })
 
-    const { data: sub } = supabase.auth.onAuthStateChange(async (_event, sess) => {
-      console.log('[AuthContext] onAuthStateChange', _event, !!sess)
+    // Watchdog: a UI NUNCA fica refém da auth. Se o Supabase travar (lock de auth
+    // preso, getSession() sem resolver), libera o app mesmo assim em vez de deixar
+    // o usuário preso em "Carregando…" infinito. Defesa em profundidade junto com
+    // o lock `ifAvailable` em supabase.ts.
+    const watchdog = setTimeout(() => {
+      if (!cancelled) {
+        console.warn('[AuthContext] watchdog: auth demorou demais, liberando a UI')
+        setLoading(false)
+      }
+    }, 4000)
+
+    async function applySession(sess: Session | null) {
+      if (cancelled) return
       setSession(sess)
       setUser(sess?.user ?? null)
       try {
         const p = await loadProfile(sess?.user ?? null)
-        setProfile(p)
+        if (!cancelled) setProfile(p)
       } catch (err) {
-        console.error('[AuthContext] loadProfile (auth change) threw', err)
+        console.error('[AuthContext] loadProfile falhou', err)
       } finally {
-        // garante que loading sai mesmo se getSession() ficou pendurado
-        if (!cancelled) setLoading(false)
+        if (!cancelled) {
+          clearTimeout(watchdog)
+          setLoading(false)
+        }
       }
+    }
+
+    console.log('[AuthContext] mount: getSession()')
+    supabase.auth
+      .getSession()
+      .then(({ data }) => {
+        console.log('[AuthContext] getSession resolved', { hasSession: !!data?.session })
+        return applySession(data.session)
+      })
+      .catch((err) => {
+        console.error('[AuthContext] getSession falhou', err)
+        if (!cancelled) {
+          clearTimeout(watchdog)
+          setLoading(false)
+        }
+      })
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, sess) => {
+      console.log('[AuthContext] onAuthStateChange', _event, !!sess)
+      void applySession(sess)
     })
 
     return () => {
       cancelled = true
+      clearTimeout(watchdog)
       sub.subscription.unsubscribe()
     }
   }, [])

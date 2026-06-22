@@ -30,17 +30,43 @@ function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit): Promise
   return fetch(input, { ...init, signal: AbortSignal.timeout(NETWORK_TIMEOUT_MS) })
 }
 
+// Lock de auth resiliente.
+// - Serializa o acesso ao token via navigator.locks → evita a corrida entre o
+//   autoRefreshToken e as escritas que travava o getSession (bug "Salvando…").
+// - Mas com TIMEOUT: se o lock ficar preso (motivo do "Carregando…" infinito que
+//   levou ao antigo `lock: () => fn()` no-op), prossegue em vez de travar o app.
+// Cobre os dois modos de falha sem o efeito colateral de nenhum dos extremos.
+const LOCK_ACQUIRE_TIMEOUT_MS = 5_000
+
+async function resilientLock<R>(
+  name: string,
+  acquireTimeout: number,
+  fn: () => Promise<R>,
+): Promise<R> {
+  if (typeof navigator === 'undefined' || !navigator.locks?.request) {
+    return fn()
+  }
+  const timeoutMs = acquireTimeout && acquireTimeout > 0 ? acquireTimeout : LOCK_ACQUIRE_TIMEOUT_MS
+  try {
+    return await navigator.locks.request(
+      `lock:${name}`,
+      { mode: 'exclusive', signal: AbortSignal.timeout(timeoutMs) },
+      async () => fn(),
+    )
+  } catch {
+    // Não conseguiu o lock no tempo (preso/abortado) → roda mesmo assim.
+    return fn()
+  }
+}
+
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    // NÃO sobrescrever `lock`. O supabase-js usa o navigator.locks por padrão
-    // para serializar o acesso ao token de auth. O override no-op anterior
-    // (`lock: () => fn()`) quebrava essa serialização: quando o autoRefreshToken
-    // rodava junto com uma escrita, o getSession() do client travava e o fetch
-    // da gravação NUNCA era disparado — botão "Salvando…" infinito, sem nenhuma
-    // requisição na aba Rede. Diagnóstico em [[sessao-cadastro-planos-e-bug-salvar-2026-06-20]].
+    // Lock com timeout (ver resilientLock acima): serializa o token sem o
+    // deadlock do navigator.locks puro nem a corrida do no-op antigo.
+    lock: resilientLock,
   },
   global: {
     fetch: fetchWithTimeout,

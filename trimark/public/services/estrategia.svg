@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-label="Estratégia e Dados — dashboards e inteligência de mercado">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5F7FC"/><stop offset="1" stop-color="#E9EEF9"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B2D5C"/><stop offset="1" stop-color="#2A4280"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" rx="24" fill="url(#bg)"/>
+  <circle cx="700" cy="70" r="110" fill="#1B2D5C" opacity="0.05"/>
+  <circle cx="90" cy="420" r="130" fill="#FA7415" opacity="0.07"/>
+
+  <!-- painel principal -->
+  <rect x="120" y="80" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+  <rect x="120" y="80" width="400" height="52" rx="18" fill="url(#navy)"/>
+  <rect x="120" y="114" width="400" height="18" fill="#1B2D5C"/>
+  <circle cx="146" cy="106" r="6" fill="#FA7415"/>
+  <rect x="162" y="100" width="120" height="12" rx="6" fill="#FFFFFF" opacity="0.5"/>
+
+  <!-- barras -->
+  <rect x="150" y="270" width="34" height="80" rx="8" fill="#C7D3EE"/>
+  <rect x="196" y="240" width="34" height="110" rx="8" fill="#8FA5D6"/>
+  <rect x="242" y="205" width="34" height="145" rx="8" fill="#3D5590"/>
+  <rect x="288" y="165" width="34" height="185" rx="8" fill="#1B2D5C"/>
+  <rect x="334" y="185" width="34" height="165" rx="8" fill="#FA7415"/>
+
+  <!-- linha de tendência -->
+  <polyline points="150,250 213,220 276,185 339,140 420,120" fill="none" stroke="#FA7415" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="420" cy="120" r="9" fill="#FA7415"/>
+  <circle cx="420" cy="120" r="16" fill="#FA7415" opacity="0.25"/>
+
+  <!-- cards KPI -->
+  <rect x="560" y="110" width="150" height="76" rx="14" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+  <rect x="576" y="128" width="60" height="10" rx="5" fill="#C7D3EE"/>
+  <rect x="576" y="148" width="90" height="16" rx="8" fill="#1B2D5C"/>
+  <path d="M690 148 l10 -14 l10 14 z" fill="#22C55E"/>
+
+  <rect x="560" y="204" width="150" height="76" rx="14" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+  <rect x="576" y="222" width="60" height="10" rx="5" fill="#C7D3EE"/>
+  <rect x="576" y="242" width="70" height="16" rx="8" fill="#FA7415"/>
+
+  <!-- pizza -->
+  <g transform="translate(635,350)">
+    <circle r="52" fill="#E3E9F5"/>
+    <path d="M0 0 L0 -52 A52 52 0 0 1 49 17 Z" fill="#1B2D5C"/>
+    <path d="M0 0 L49 17 A52 52 0 0 1 8 51 Z" fill="#FA7415"/>
+    <circle r="20" fill="#FFFFFF"/>
+  </g>
+
+  <!-- alvo -->
+  <g transform="translate(88,140)">
+    <circle r="46" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+    <circle r="30" fill="none" stroke="#1B2D5C" stroke-width="6"/>
+    <circle r="14" fill="none" stroke="#FA7415" stroke-width="6"/>
+    <circle r="4" fill="#1B2D5C"/>
+  </g>
+</svg>

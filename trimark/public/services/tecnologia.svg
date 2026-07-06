@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-label="Tecnologia e Produto — software sob medida, automação e IA">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5F7FC"/><stop offset="1" stop-color="#E9EEF9"/>
+    </linearGradient>
+    <linearGradient id="navy4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B2D5C"/><stop offset="1" stop-color="#2A4280"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" rx="24" fill="url(#bg4)"/>
+  <circle cx="100" cy="390" r="110" fill="#FA7415" opacity="0.07"/>
+  <circle cx="710" cy="80" r="100" fill="#1B2D5C" opacity="0.05"/>
+
+  <!-- janela de código -->
+  <rect x="150" y="80" width="360" height="270" rx="18" fill="url(#navy4)"/>
+  <rect x="150" y="80" width="360" height="44" rx="18" fill="#16254D"/>
+  <rect x="150" y="106" width="360" height="18" fill="#16254D"/>
+  <circle cx="178" cy="102" r="7" fill="#FA7415"/>
+  <circle cx="200" cy="102" r="7" fill="#8FA5D6"/>
+  <circle cx="222" cy="102" r="7" fill="#22C55E"/>
+  <!-- linhas de código -->
+  <rect x="180" y="150" width="120" height="12" rx="6" fill="#FA7415"/>
+  <rect x="310" y="150" width="90" height="12" rx="6" fill="#8FA5D6" opacity="0.6"/>
+  <rect x="200" y="178" width="180" height="12" rx="6" fill="#FFFFFF" opacity="0.75"/>
+  <rect x="200" y="206" width="140" height="12" rx="6" fill="#8FA5D6"/>
+  <rect x="350" y="206" width="70" height="12" rx="6" fill="#FA7415" opacity="0.8"/>
+  <rect x="200" y="234" width="200" height="12" rx="6" fill="#FFFFFF" opacity="0.55"/>
+  <rect x="180" y="262" width="90 " height="12" rx="6" fill="#22C55E"/>
+  <rect x="180" y="298" width="240" height="12" rx="6" fill="#8FA5D6" opacity="0.4"/>
+
+  <!-- chip IA -->
+  <g transform="translate(620,190)">
+    <rect x="-52" y="-52" width="104" height="104" rx="20" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+    <rect x="-30" y="-30" width="60" height="60" rx="12" fill="#1B2D5C"/>
+    <text x="0" y="8" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" fill="#FFFFFF" text-anchor="middle">IA</text>
+    <g stroke="#FA7415" stroke-width="5" stroke-linecap="round">
+      <line x1="-14" y1="-52" x2="-14" y2="-68"/><line x1="14" y1="-52" x2="14" y2="-68"/>
+      <line x1="-14" y1="52" x2="-14" y2="68"/><line x1="14" y1="52" x2="14" y2="68"/>
+      <line x1="-52" y1="-14" x2="-68" y2="-14"/><line x1="-52" y1="14" x2="-68" y2="14"/>
+      <line x1="52" y1="-14" x2="68" y2="-14"/><line x1="52" y1="14" x2="68" y2="14"/>
+    </g>
+  </g>
+
+  <!-- engrenagens -->
+  <g transform="translate(600,370)">
+    <g fill="#3D5590">
+      <circle r="30"/>
+      <g stroke="#3D5590" stroke-width="14" stroke-linecap="round">
+        <line x1="0" y1="-38" x2="0" y2="-44"/><line x1="0" y1="38" x2="0" y2="44"/>
+        <line x1="-38" y1="0" x2="-44" y2="0"/><line x1="38" y1="0" x2="44" y2="0"/>
+        <line x1="-27" y1="-27" x2="-31" y2="-31"/><line x1="27" y1="27" x2="31" y2="31"/>
+        <line x1="-27" y1="27" x2="-31" y2="31"/><line x1="27" y1="-27" x2="31" y2="-31"/>
+      </g>
+    </g>
+    <circle r="12" fill="#FFFFFF"/>
+  </g>
+  <g transform="translate(676,320)">
+    <g fill="#FA7415">
+      <circle r="20"/>
+      <g stroke="#FA7415" stroke-width="10" stroke-linecap="round">
+        <line x1="0" y1="-26" x2="0" y2="-31"/><line x1="0" y1="26" x2="0" y2="31"/>
+        <line x1="-26" y1="0" x2="-31" y2="0"/><line x1="26" y1="0" x2="31" y2="0"/>
+      </g>
+    </g>
+    <circle r="8" fill="#FFFFFF"/>
+  </g>
+
+  <!-- nós conectados (integrações) -->
+  <g stroke="#8FA5D6" stroke-width="3">
+    <line x1="105" y1="150" x2="150" y2="190"/>
+    <line x1="105" y1="150" x2="150" y2="110"/>
+    <line x1="105" y1="150" x2="105" y2="230"/>
+  </g>
+  <circle cx="105" cy="150" r="14" fill="#1B2D5C"/>
+  <circle cx="105" cy="230" r="10" fill="#FA7415"/>
+  <circle cx="150" cy="110" r="8" fill="#3D5590"/>
+
+  <!-- smartphone WhatsApp/automação -->
+  <g transform="translate(300,400)">
+    <rect x="-32" y="-38" width="64" height="86" rx="14" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+    <rect x="-20" y="-24" width="40" height="14" rx="7" fill="#E3E9F5"/>
+    <rect x="-20" y="-4" width="40" height="14" rx="7" fill="#22C55E" opacity="0.85"/>
+    <rect x="-20" y="16" width="26" height="14" rx="7" fill="#E3E9F5"/>
+  </g>
+</svg>

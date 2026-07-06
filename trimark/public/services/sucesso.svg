@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-label="Sucesso do Cliente — gestão de conta, processos e previsibilidade">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5F7FC"/><stop offset="1" stop-color="#E9EEF9"/>
+    </linearGradient>
+    <linearGradient id="navy5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B2D5C"/><stop offset="1" stop-color="#2A4280"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" rx="24" fill="url(#bg5)"/>
+  <circle cx="90" cy="90" r="100" fill="#1B2D5C" opacity="0.05"/>
+  <circle cx="720" cy="400" r="120" fill="#FA7415" opacity="0.07"/>
+
+  <!-- balões de conversa -->
+  <g transform="translate(190,150)">
+    <path d="M-70 -50 h190 a18 18 0 0 1 18 18 v64 a18 18 0 0 1 -18 18 h-130 l-34 30 v-30 h-26 a18 18 0 0 1 -18 -18 v-64 a18 18 0 0 1 18 -18 z" fill="url(#navy5)"/>
+    <rect x="-48" y="-26" width="140" height="12" rx="6" fill="#FFFFFF" opacity="0.7"/>
+    <rect x="-48" y="0" width="100" height="12" rx="6" fill="#FFFFFF" opacity="0.45"/>
+  </g>
+  <g transform="translate(330,290)">
+    <path d="M-60 -40 h170 a16 16 0 0 1 16 16 v52 a16 16 0 0 1 -16 16 h-24 v28 l-32 -28 h-114 a16 16 0 0 1 -16 -16 v-52 a16 16 0 0 1 16 -16 z" fill="#FA7415"/>
+    <rect x="-40" y="-18" width="120" height="11" rx="5.5" fill="#FFFFFF" opacity="0.8"/>
+    <rect x="-40" y="4" width="80" height="11" rx="5.5" fill="#FFFFFF" opacity="0.55"/>
+  </g>
+
+  <!-- checklist -->
+  <rect x="520" y="90" width="200" height="230" rx="18" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+  <rect x="544" y="116" width="100" height="14" rx="7" fill="#1B2D5C"/>
+  <g transform="translate(556,170)">
+    <rect x="-12" y="-12" width="24" height="24" rx="7" fill="#22C55E"/>
+    <path d="M-5 0 l4 5 l7 -10" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="24" y="-7" width="110" height="12" rx="6" fill="#C7D3EE"/>
+  </g>
+  <g transform="translate(556,216)">
+    <rect x="-12" y="-12" width="24" height="24" rx="7" fill="#22C55E"/>
+    <path d="M-5 0 l4 5 l7 -10" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="24" y="-7" width="90" height="12" rx="6" fill="#C7D3EE"/>
+  </g>
+  <g transform="translate(556,262)">
+    <rect x="-12" y="-12" width="24" height="24" rx="7" fill="#FA7415"/>
+    <path d="M-5 0 l4 5 l7 -10" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="24" y="-7" width="120" height="12" rx="6" fill="#E3E9F5"/>
+  </g>
+
+  <!-- headset -->
+  <g transform="translate(140,360)">
+    <path d="M-46 8 a46 46 0 0 1 92 0" fill="none" stroke="#1B2D5C" stroke-width="10" stroke-linecap="round"/>
+    <rect x="-56" y="4" width="20" height="36" rx="10" fill="#FA7415"/>
+    <rect x="36" y="4" width="20" height="36" rx="10" fill="#FA7415"/>
+    <path d="M46 40 q 0 26 -34 28" fill="none" stroke="#1B2D5C" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="6" cy="70" r="7" fill="#1B2D5C"/>
+  </g>
+
+  <!-- calendário -->
+  <g transform="translate(620,395)">
+    <rect x="-54" y="-44" width="108" height="92" rx="14" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="2"/>
+    <rect x="-54" y="-44" width="108" height="28" rx="14" fill="#1B2D5C"/>
+    <rect x="-54" y="-28" width="108" height="12" fill="#1B2D5C"/>
+    <line x1="-26" y1="-52" x2="-26" y2="-36" stroke="#FA7415" stroke-width="6" stroke-linecap="round"/>
+    <line x1="26" y1="-52" x2="26" y2="-36" stroke="#FA7415" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="-26" cy="0" r="6" fill="#C7D3EE"/><circle cx="0" cy="0" r="6" fill="#C7D3EE"/><circle cx="26" cy="0" r="6" fill="#FA7415"/>
+    <circle cx="-26" cy="26" r="6" fill="#C7D3EE"/><circle cx="0" cy="26" r="6" fill="#1B2D5C"/><circle cx="26" cy="26" r="6" fill="#C7D3EE"/>
+  </g>
+
+  <!-- estrelas de satisfação -->
+  <g transform="translate(420,110)" fill="#FA7415">
+    <path d="M0 -14 L4 -4 L14 -4 L6 3 L9 13 L0 7 L-9 13 L-6 3 L-14 -4 L-4 -4 Z"/>
+    <path d="M40 -14 L44 -4 L54 -4 L46 3 L49 13 L40 7 L31 13 L34 3 L26 -4 L36 -4 Z"/>
+    <path d="M80 -14 L84 -4 L94 -4 L86 3 L89 13 L80 7 L71 13 L74 3 L66 -4 L76 -4 Z"/>
+  </g>
+</svg>

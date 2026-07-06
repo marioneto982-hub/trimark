@@ -102,9 +102,9 @@ function Hero() {
           <img
             src="/logo-trimark.png"
             alt="Trimark"
-            className="mx-auto h-24 sm:h-32 md:h-40 w-auto drop-shadow-sm"
-            width={480}
-            height={160}
+            className="mx-auto h-36 sm:h-48 md:h-60 lg:h-72 w-auto drop-shadow-sm"
+            width={720}
+            height={288}
           />
         </Reveal>
 
@@ -150,6 +150,7 @@ type Service = {
   title: string
   tagline: string
   detail: string
+  img: string
   deliverables: string[]
   sectors: string[]
   models: string[]
@@ -161,6 +162,7 @@ const SERVICES: Service[] = [
     icon: Target,
     title: 'Estratégia & Dados',
     tagline: 'Posicionamento, pesquisa e inteligência de mercado.',
+    img: '/services/estrategia.svg',
     detail:
       'Tudo começa por um diagnóstico: entendemos seu setor, seu funil e suas metas — e saímos com um plano claro, não com promessas. Decisões por números, não por achismo.',
     deliverables: [
@@ -177,6 +179,7 @@ const SERVICES: Service[] = [
     icon: Sparkles,
     title: 'Criação & Conteúdo',
     tagline: 'Branding, design e conteúdo que constroem marca.',
+    img: '/services/criacao.svg',
     detail:
       'Produção de conteúdo com cadência e estratégia: identidade visual, social media e materiais que geram demanda — validados com o rigor que aprendemos atendendo o setor mais exigente, a saúde.',
     deliverables: [
@@ -193,6 +196,7 @@ const SERVICES: Service[] = [
     icon: Megaphone,
     title: 'Performance & Mídia',
     tagline: 'Tráfego pago, SEO e CRM com meta de retorno.',
+    img: '/services/performance.svg',
     detail:
       'O motor de aquisição: campanhas, SEO e automação de marketing rodando com metas de CPL, CPA, ROAS e vendas. Medimos, ajustamos e reportamos — sem métrica de vaidade.',
     deliverables: [
@@ -209,6 +213,7 @@ const SERVICES: Service[] = [
     icon: Cpu,
     title: 'Tecnologia & Produto',
     tagline: 'Software sob medida, automação e IA.',
+    img: '/services/tecnologia.svg',
     detail:
       'O que nenhuma agência comum faz: construímos software, automações e IA próprios que ampliam o resultado do marketing e viram diferencial competitivo seu — de CRM a plataformas completas.',
     deliverables: [
@@ -225,6 +230,7 @@ const SERVICES: Service[] = [
     icon: Headset,
     title: 'Sucesso do Cliente',
     tagline: 'Gestão de conta, processos e previsibilidade.',
+    img: '/services/sucesso.svg',
     detail:
       'Estratégia, execução e tecnologia sob um mesmo teto e uma única conta — acabou o malabarismo com vários fornecedores. Entrega previsível, mês após mês, com transparência total.',
     deliverables: [
@@ -284,7 +290,7 @@ function ServiceCard({
   open: boolean
   onToggle: () => void
 }) {
-  const { icon: Icon, title, tagline, detail, deliverables, sectors, models, cta } = service
+  const { icon: Icon, title, tagline, detail, img, deliverables, sectors, models, cta } = service
 
   return (
     <article
@@ -331,6 +337,14 @@ function ServiceCard({
       >
         <div className="overflow-hidden">
           <div className="px-5 md:px-6 pb-6 pt-1 border-t border-border/60 mt-0">
+            <img
+              src={img}
+              alt={title}
+              className="mt-4 w-full h-auto rounded-xl border border-border/60"
+              loading="lazy"
+              width={800}
+              height={480}
+            />
             <p className="mt-4 text-muted-foreground leading-relaxed">{detail}</p>
 
             <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-6">

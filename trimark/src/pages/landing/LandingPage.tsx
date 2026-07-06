@@ -152,7 +152,6 @@ type Service = {
   detail: string
   img: string
   deliverables: string[]
-  sectors: string[]
   models: string[]
   cta: string
 }
@@ -163,16 +162,13 @@ const SERVICES: Service[] = [
     title: 'Estratégia & Dados',
     tagline: 'Posicionamento, pesquisa e inteligência de mercado.',
     img: '/services/estrategia.svg',
-    detail:
-      'Tudo começa por um diagnóstico: entendemos seu setor, seu funil e suas metas — e saímos com um plano claro, não com promessas. Decisões por números, não por achismo.',
+    detail: 'Diagnóstico do seu setor, funil e metas — e um plano claro para crescer.',
     deliverables: [
-      'Diagnóstico de funil e posicionamento',
-      'Pesquisa e inteligência de mercado',
-      'Plano de marketing com metas de negócio',
+      'Diagnóstico e posicionamento',
+      'Plano de marketing com metas',
       'BI e relatórios transparentes',
     ],
-    sectors: ['Saúde', 'Varejo & E-commerce', 'Serviços & B2B', 'Imobiliário', 'Educação', 'Indústria'],
-    models: ['Por projeto (escopo fechado)', 'Incluído no fee mensal'],
+    models: ['Por projeto', 'Incluído no fee mensal'],
     cta: 'Quero um diagnóstico da minha empresa',
   },
   {
@@ -180,16 +176,13 @@ const SERVICES: Service[] = [
     title: 'Criação & Conteúdo',
     tagline: 'Branding, design e conteúdo que constroem marca.',
     img: '/services/criacao.svg',
-    detail:
-      'Produção de conteúdo com cadência e estratégia: identidade visual, social media e materiais que geram demanda — validados com o rigor que aprendemos atendendo o setor mais exigente, a saúde.',
+    detail: 'Identidade visual, social media e conteúdo com estratégia e cadência.',
     deliverables: [
-      'Identidade visual e branding',
-      'Calendário editorial e social media',
-      'Design de peças e campanhas',
-      'Conteúdo validado por setor (na saúde: resoluções CFM, CFO, CFP, CFN e COFFITO)',
+      'Branding e identidade visual',
+      'Social media e calendário editorial',
+      'Conteúdo validado por setor',
     ],
-    sectors: ['Saúde', 'Varejo & E-commerce', 'Serviços & B2B', 'Educação'],
-    models: ['Fee mensal (execução recorrente)', 'Por projeto (branding)'],
+    models: ['Fee mensal', 'Por projeto (branding)'],
     cta: 'Quero fortalecer minha marca',
   },
   {
@@ -197,16 +190,13 @@ const SERVICES: Service[] = [
     title: 'Performance & Mídia',
     tagline: 'Tráfego pago, SEO e CRM com meta de retorno.',
     img: '/services/performance.svg',
-    detail:
-      'O motor de aquisição: campanhas, SEO e automação de marketing rodando com metas de CPL, CPA, ROAS e vendas. Medimos, ajustamos e reportamos — sem métrica de vaidade.',
+    detail: 'Campanhas, SEO e automação com metas de CPL, CPA, ROAS e vendas.',
     deliverables: [
-      'Gestão de tráfego pago (Meta, Google)',
-      'SEO e presença orgânica',
-      'CRM e automação de marketing',
-      'Otimização contínua com relatórios mensais',
+      'Tráfego pago (Meta, Google)',
+      'SEO e CRM',
+      'Otimização e relatórios mensais',
     ],
-    sectors: ['Varejo & E-commerce', 'Serviços & B2B', 'Imobiliário', 'Educação', 'Saúde'],
-    models: ['Fee mensal', 'Performance (parte atrelada a resultado)', 'Híbrido (fee + performance)'],
+    models: ['Fee mensal', 'Performance', 'Híbrido'],
     cta: 'Quero gerar mais vendas e leads',
   },
   {
@@ -214,16 +204,13 @@ const SERVICES: Service[] = [
     title: 'Tecnologia & Produto',
     tagline: 'Software sob medida, automação e IA.',
     img: '/services/tecnologia.svg',
-    detail:
-      'O que nenhuma agência comum faz: construímos software, automações e IA próprios que ampliam o resultado do marketing e viram diferencial competitivo seu — de CRM a plataformas completas.',
+    detail: 'Software, automações e IA próprios que viram diferencial competitivo seu.',
     deliverables: [
-      'Software e sistemas sob medida',
-      'Automações e integrações (WhatsApp, pagamentos, CRM)',
-      'Soluções com IA aplicada ao seu funil',
-      'Plataformas SaaS setoriais por assinatura',
+      'Sistemas sob medida',
+      'Automações e integrações',
+      'IA aplicada ao seu funil',
     ],
-    sectors: ['Serviços & B2B', 'Varejo & E-commerce', 'Indústria', 'Imobiliário', 'Saúde'],
-    models: ['Por projeto (escopo fechado)', 'Assinatura SaaS'],
+    models: ['Por projeto', 'Assinatura SaaS'],
     cta: 'Quero tecnologia trabalhando pra mim',
   },
   {
@@ -231,15 +218,12 @@ const SERVICES: Service[] = [
     title: 'Sucesso do Cliente',
     tagline: 'Gestão de conta, processos e previsibilidade.',
     img: '/services/sucesso.svg',
-    detail:
-      'Estratégia, execução e tecnologia sob um mesmo teto e uma única conta — acabou o malabarismo com vários fornecedores. Entrega previsível, mês após mês, com transparência total.',
+    detail: 'Tudo sob um mesmo teto e uma única conta — entrega previsível todo mês.',
     deliverables: [
       'Gestão de conta dedicada',
-      'Onboarding sem fricção',
-      'Portal do cliente para aprovações e acompanhamento',
-      'Reuniões e relatórios com cadência definida',
+      'Portal do cliente',
+      'Relatórios com cadência',
     ],
-    sectors: ['Todos os setores atendidos'],
     models: ['Incluído em qualquer parceria'],
     cta: 'Quero uma parceria integrada',
   },
@@ -265,17 +249,24 @@ function Services() {
           </div>
         </Reveal>
 
-        <div className="mt-10 space-y-3">
-          {SERVICES.map((service, i) => (
-            <Reveal key={service.title} delay={i * 60}>
+        <Reveal delay={80}>
+          <div className="mt-10 rounded-2xl border border-border bg-background divide-y divide-border overflow-hidden shadow-sm">
+            {SERVICES.map((service, i) => (
               <ServiceCard
+                key={service.title}
                 service={service}
                 open={openIdx === i}
                 onToggle={() => setOpenIdx(openIdx === i ? null : i)}
               />
-            </Reveal>
-          ))}
-        </div>
+            ))}
+            <div className="flex items-center justify-center gap-2.5 p-4 md:p-5 bg-primary text-primary-foreground text-center">
+              <CheckCircle2 className="size-4 shrink-0 text-emerald-400" />
+              <p className="text-sm">
+                <strong>Tudo se integra:</strong> as cinco frentes trabalham juntas — uma estratégia, os mesmos dados, uma única conta.
+              </p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -290,21 +281,19 @@ function ServiceCard({
   open: boolean
   onToggle: () => void
 }) {
-  const { icon: Icon, title, tagline, detail, img, deliverables, sectors, models, cta } = service
+  const { icon: Icon, title, tagline, detail, img, deliverables, models, cta } = service
 
   return (
     <article
       className={cn(
-        'rounded-2xl border bg-background transition-all duration-300 overflow-hidden',
-        open
-          ? 'border-primary/50 shadow-xl shadow-primary/5'
-          : 'border-border hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5',
+        'transition-colors duration-300 overflow-hidden',
+        open ? 'bg-muted/30' : 'hover:bg-muted/20',
       )}
     >
       <button
         onClick={onToggle}
         aria-expanded={open}
-        className="w-full flex items-center gap-4 p-5 md:p-6 text-left"
+        className="w-full flex items-center gap-4 p-4 md:p-5 text-left"
       >
         <div
           className={cn(
@@ -361,34 +350,17 @@ function ServiceCard({
                   ))}
                 </ul>
               </div>
-              <div className="space-y-5">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-3">
-                    Para quem
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {sectors.map((s) => (
-                      <span
-                        key={s}
-                        className="text-xs font-medium px-3 py-1.5 rounded-full bg-muted/60 border border-border text-foreground/80"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-3">
-                    Como contratar
-                  </p>
-                  <ul className="space-y-1.5">
-                    {models.map((m) => (
-                      <li key={m} className="text-sm text-muted-foreground">
-                        · {m}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary mb-3">
+                  Como contratar
+                </p>
+                <ul className="space-y-1.5">
+                  {models.map((m) => (
+                    <li key={m} className="text-sm text-muted-foreground">
+                      · {m}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 

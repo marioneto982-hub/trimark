@@ -414,9 +414,9 @@ function FinalCTA() {
                     <ArrowRight className="size-4 ml-2 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </a>
-                <a href="mailto:contato@trimark.com.br">
+                <a href="mailto:trimarkagencia@gmail.com">
                   <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-base bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                    contato@trimark.com.br
+                    trimarkagencia@gmail.com
                   </Button>
                 </a>
               </div>
@@ -564,7 +564,7 @@ function Footer() {
             <div>
               <p className="font-semibold mb-3">Contato</p>
               <ul className="space-y-2 text-muted-foreground">
-                <li><a href="mailto:contato@trimark.com.br" className="hover:text-foreground transition-colors">contato@trimark.com.br</a></li>
+                <li><a href="mailto:trimarkagencia@gmail.com" className="hover:text-foreground transition-colors">trimarkagencia@gmail.com</a></li>
                 <li><a href={WHATSAPP} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">WhatsApp · (34) 97400-4930</a></li>
                 <li><a href="https://www.instagram.com/trimarkagencia" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram · @trimarkagencia</a></li>
               </ul>

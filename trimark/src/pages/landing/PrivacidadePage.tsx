@@ -11,6 +11,7 @@ import { ArrowLeft } from 'lucide-react'
 const ATUALIZADO_EM = '24 de novembro de 2026'
 const WHATSAPP = 'https://wa.me/5534974004930'
 const INSTAGRAM = 'https://www.instagram.com/trimarkagencia'
+const EMAIL = 'trimarkagencia@gmail.com'
 
 export default function PrivacidadePage() {
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function PrivacidadePage() {
           <p>
             Trimark Agência de Marketing, com atuação em Iturama (MG) e região, é a responsável
             (controladora) pelos dados descritos nesta política. Para qualquer assunto sobre seus dados,
-            fale conosco pelo{' '}
+            fale conosco pelo e-mail <LinkExterno href={`mailto:${EMAIL}`}>{EMAIL}</LinkExterno>, pelo{' '}
             <LinkExterno href={WHATSAPP}>WhatsApp (34) 97400-4930</LinkExterno> ou pelo Instagram{' '}
             <LinkExterno href={INSTAGRAM}>@trimarkagencia</LinkExterno>.
           </p>
@@ -135,7 +136,8 @@ export default function PrivacidadePage() {
             Você pode, a qualquer momento e sem custo, pedir: confirmação de que tratamos seus dados; acesso
             aos dados; correção de dados incompletos ou desatualizados; anonimização, bloqueio ou eliminação
             de dados desnecessários; portabilidade; informação sobre com quem compartilhamos; e revogação do
-            consentimento (art. 18 da LGPD). Para isso, fale conosco pelo{' '}
+            consentimento (art. 18 da LGPD). Para isso, fale conosco pelo e-mail{' '}
+            <LinkExterno href={`mailto:${EMAIL}`}>{EMAIL}</LinkExterno> ou pelo{' '}
             <LinkExterno href={WHATSAPP}>WhatsApp</LinkExterno>. Você também pode apresentar reclamação à
             Autoridade Nacional de Proteção de Dados (ANPD).
           </p>

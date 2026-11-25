@@ -558,6 +558,7 @@ function Footer() {
                 <li><a href="#servicos" className="hover:text-foreground transition-colors">Serviços</a></li>
                 <li><a href="#sobre" className="hover:text-foreground transition-colors">Sobre</a></li>
                 <li><Link to="/login" className="hover:text-foreground transition-colors">Acessar plataforma</Link></li>
+                <li><Link to="/privacidade" className="hover:text-foreground transition-colors">Política de privacidade</Link></li>
               </ul>
             </div>
             <div>

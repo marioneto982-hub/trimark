@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext'
 import { ProtectedRoute } from '@/components/shared/ProtectedRoute'
 import LoginPage from '@/pages/login/LoginPage'
 import LandingPage from '@/pages/landing/LandingPage'
+import PrivacidadePage from '@/pages/landing/PrivacidadePage'
 import AdminLayout from '@/pages/admin/AdminLayout'
 import AdminDashboard from '@/pages/admin/AdminDashboard'
 import ClientsListPage from '@/pages/admin/clients/ClientsListPage'
@@ -55,6 +56,7 @@ export default function App() {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/privacidade" element={<PrivacidadePage />} />
 
             <Route
               path="/admin"
